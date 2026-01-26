@@ -1,113 +1,125 @@
-/* =========================================================
-   WTD BOT — Local, non-traçant, rassurant
-   FR / MG
-   Aucun stockage, aucun appel serveur
-========================================================= */
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bot d’information – WTD-Madagascar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Bot d’information WTD-Madagascar : assistant d’orientation citoyenne, sans automatisation ni collecte de données." />
 
-(function () {
+  <!-- CSS chargé dynamiquement -->
+  <link rel="stylesheet" data-main-css />
 
-  const LANG = document.documentElement.lang === "mg" ? "mg" : "fr";
+  <!-- Base path & logique globale -->
+  <script src="../assets/js/basepath.js"></script>
+  <script src="../assets/js/main.js" defer></script>
+</head>
 
-  const TEXT = {
-    fr: {
-      hello: "Je suis là avec vous. Respirez. Vous n’êtes pas seul.",
-      help: "Si vous êtes en danger immédiat, appuyez sur le bouton rouge.",
-      danger: "JE SUIS EN DANGER !",
-      call: "Appeler les secours",
-      locate: "Partager ma position",
-      locating: "Recherche de votre position…",
-      located: "Position prête à être partagée.",
-      refused: "Position non partagée. Vous pouvez appeler les secours.",
-      noGeo: "La géolocalisation n’est pas disponible sur cet appareil.",
-      disclaimer:
-        "Ce bouton n’envoie rien automatiquement. Vous gardez le contrôle."
-    },
-    mg: {
-      hello: "Eto aho miaraka aminao. Mifoka rivotra. Tsy irery ianao.",
-      help: "Raha tandindomin-doza ianao dia tsindrio ilay bokotra mena.",
-      danger: "TANDINDOMIN-DOZA AHO !",
-      call: "Antsoy ny vonjy taitra",
-      locate: "Zarao ny toerana misy ahy",
-      locating: "Mitady ny toerana misy anao…",
-      located: "Vonona ny toerana misy anao.",
-      refused: "Tsy nozaraina ny toerana. Afaka miantso vonjy ianao.",
-      noGeo: "Tsy misy géolocalisation amin’ity fitaovana ity.",
-      disclaimer:
-        "Tsy misy zavatra alefa ho azy. Ianao no mifehy tanteraka."
-    }
-  };
+<body>
 
-  const T = TEXT[LANG];
+<!-- Accès rapide clavier -->
+<a class="skip-link" href="#contenu">Aller au contenu</a>
 
-  // Numéros configurables (adapter si besoin)
-  const EMERGENCY_NUMBER = "112";        // international
-  const FAMILY_NUMBER = "";              // ex: "tel:+261XXXXXXXXX"
+<header class="site-header">
+  <div class="container">
+    <h1>WTD-Madagascar</h1>
+    <p>Information · Orientation · Terrain</p>
 
-  function el(id) {
-    return document.getElementById(id);
-  }
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a data-href="index.html">Accueil</a>
+      <a data-href="doc/services.html">Services</a>
+      <a data-href="doc/transport-accessible.html">Transport</a>
+      <a data-href="doc/map-services.html">Carte</a>
+      <a data-href="doc/bot-dashboard.html" aria-current="page">Bot</a>
+      <a data-href="doc/inscription.html">Proposer un service</a>
+      <a data-href="doc/statut-transparence.html">Statut & transparence</a>
+      <a data-href="doc/institutions-partenaires.html">Institutions</a>
+    </nav>
+  </div>
+</header>
 
-  function setText() {
-    el("bot-hello").textContent = T.hello;
-    el("bot-help").textContent = T.help;
-    el("btn-danger").textContent = T.danger;
-    el("btn-call").textContent = T.call;
-    el("btn-locate").textContent = T.locate;
-    el("bot-disclaimer").textContent = T.disclaimer;
-  }
+<main id="contenu">
 
-  function callEmergency() {
-    window.location.href = "tel:" + EMERGENCY_NUMBER;
-  }
+  <!-- ====== PRÉSENTATION ====== -->
+  <section class="card">
+    <span class="badge badge-info">Assistant terrain</span>
+    <h2>Bot WTD-Madagascar</h2>
+    <p>
+      Le bot WTD-Madagascar est un <strong>assistant d’orientation et d’information</strong>.
+      Il aide les personnes, familles, aidants et partenaires à mieux comprendre
+      et accéder aux services accessibles à Madagascar.
+    </p>
+    <p>
+      Il <strong>ne remplace ni l’humain, ni le terrain</strong>.
+      Il accompagne, structure et facilite l’accès à l’information.
+    </p>
+    <p class="small">
+      Tsy misolo olona na rafitra eny an-toerana ny bot.
+      Izy dia manampy amin’ny fanazavana sy fitarihana.
+    </p>
+  </section>
 
-  function callFamily() {
-    if (FAMILY_NUMBER) {
-      window.location.href = FAMILY_NUMBER;
-    }
-  }
+  <!-- ====== FONCTIONS ====== -->
+  <section class="card">
+    <h2>Ce que le bot peut faire</h2>
+    <ul>
+      <li>Répondre à des questions simples et générales</li>
+      <li>Orienter vers les services existants</li>
+      <li>Expliquer le fonctionnement du programme WTD</li>
+      <li>Diriger vers la carte des services accessibles</li>
+      <li>Informer sans jargon ni complexité technique</li>
+    </ul>
+  </section>
 
-  function shareLocation() {
-    const status = el("bot-status");
+  <!-- ====== ÉVOLUTIONS ====== -->
+  <section class="card">
+    <h2>Fonctions prévues (progressives)</h2>
+    <ul>
+      <li>Orientation par zone géographique</li>
+      <li>Version allégée utilisable hors-ligne</li>
+      <li>Support multilingue (français / malgache)</li>
+      <li>Accès facilité aux relais associatifs et terrain</li>
+      <li>Mises à jour selon les retours locaux</li>
+    </ul>
+    <p class="small">
+      Les évolutions se font progressivement, en lien avec le terrain.
+    </p>
+  </section>
 
-    if (!navigator.geolocation) {
-      status.textContent = T.noGeo;
-      return;
-    }
+  <!-- ====== LIMITES ====== -->
+  <section class="card">
+    <h2>Ce que le bot ne fait pas</h2>
+    <ul>
+      <li>❌ Aucun diagnostic médical ou social</li>
+      <li>❌ Aucune décision automatisée</li>
+      <li>❌ Aucune collecte de données personnelles</li>
+      <li>❌ Aucun remplacement des acteurs humains</li>
+      <li>❌ Aucun rôle de contrôle ou de surveillance</li>
+    </ul>
+  </section>
 
-    status.textContent = T.locating;
+  <!-- ====== ACCÈS RAPIDES ====== -->
+  <section class="card">
+    <h2>Accès rapides</h2>
+    <div class="actions">
+      <a class="btn" data-href="doc/map-services.html">📍 Voir la carte des services</a>
+      <a class="btn btn-secondary" data-href="doc/inscription.html">✍️ Proposer un service</a>
+      <a class="btn btn-secondary" data-href="doc/">📄 Documents terrain</a>
+    </div>
+  </section>
 
-    navigator.geolocation.getCurrentPosition(
-      pos => {
-        const lat = pos.coords.latitude.toFixed(6);
-        const lng = pos.coords.longitude.toFixed(6);
+</main>
 
-        const message =
-          "Je suis en difficulté. Ma position est : " +
-          "https://maps.google.com/?q=" + lat + "," + lng;
+<footer class="site-footer">
+  <p>
+    © WTD-Madagascar — Projet citoyen, humain et non automatisé
+  </p>
+  <p>
+    <small>
+      Aucune donnée personnelle collectée · Orientation uniquement ·
+      <a data-href="doc/statut-transparence.html">Transparence</a>
+    </small>
+  </p>
+</footer>
 
-        // Aucune donnée envoyée : simple lien affiché
-        const link = document.createElement("a");
-        link.href = "sms:?body=" + encodeURIComponent(message);
-        link.textContent = "Envoyer ma position par SMS";
-        link.className = "btn btn-secondary";
-
-        status.textContent = T.located;
-        status.appendChild(document.createElement("br"));
-        status.appendChild(link);
-      },
-      () => {
-        status.textContent = T.refused;
-      },
-      { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
-    );
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    setText();
-
-    el("btn-danger").addEventListener("click", callEmergency);
-    el("btn-call").addEventListener("click", callEmergency);
-    el("btn-locate").addEventListener("click", shareLocation);
-  });
-
-})();
+</body>
+</html>
