@@ -26,3 +26,17 @@
     }
   ]
 }
+{
+  "points": [
+    {
+      "id": "TANA-TAXI-001",
+      "name": "Taxi solidaire Antananarivo",
+      "type": "transport",
+      "lat": -18.8792,
+      "lng": 47.5079,
+      "accessible": true,
+      "access_details": "Aide humaine",
+      "availability": "incertain"
+    }
+  ]
+}
