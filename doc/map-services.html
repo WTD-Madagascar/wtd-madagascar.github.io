@@ -1,94 +1,148 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Carte des services – WTD-Madagascar</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <meta charset="UTF-8" />
+  <title>WTD Madagascar – Carte des services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Leaflet -->
+  <link rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: system-ui, sans-serif;
+    }
+
+    #header {
+      background: #0b4a6f;
+      color: #fff;
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    #map {
+      height: calc(100% - 44px);
+      width: 100%;
+    }
+
+    .bot-icon {
+      text-align: center;
+      line-height: 1;
+    }
+  </style>
 </head>
 
 <body>
-<a class="skip-link" href="#contenu">Aller au contenu</a>
 
-<header class="site-header">
-<div class="container">
-<h1>WTD-Madagascar</h1>
-<p>Cartographie terrain & inclusion</p>
-<nav class="site-nav">
-<a href="../index.html">Accueil</a>
-<a href="services.html">Services</a>
-<a href="transport-accessible.html">Transport</a>
-<a aria-current="page">Carte</a>
-<a href="bot-dashboard.html">Bot</a>
-</nav>
-</div>
-</header>
-
-<main id="contenu">
-<section class="card">
-<h2>Carte des services accessibles</h2>
-<p>Carte indicative terrain – aucune donnée personnelle.</p>
-</section>
-
-<section class="card">
-<div class="map-filters">
-<label><input type="checkbox" id="f-transport" checked> 🚐 Transports</label>
-<label><input type="checkbox" id="f-relais" checked> 🤝 Relais</label>
-<label><input type="checkbox" id="f-accessible" checked> ♿ Accessibles</label>
+<div id="header">
+  Un problème ? Signale-le. Tu aides les autres.
 </div>
 
-<div id="map" style="height:500px;border-radius:12px;"></div>
-</section>
-</main>
-
-<footer class="site-footer">
-<p>© WTD-Madagascar — Carte humaine & terrain</p>
-</footer>
+<div id="map"></div>
 
 <script>
-const map = L.map("map").setView([-18.8792,47.5079],6);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-{attribution:"© OpenStreetMap"}).addTo(map);
+/* =============================
+   1. INITIALISATION DE LA CARTE
+============================= */
 
-const icons={
- transport:L.icon({iconUrl:"../assets/img/marker-transport.png",iconSize:[28,42],iconAnchor:[14,42]}),
- relais:L.icon({iconUrl:"../assets/img/marker-relais.png",iconSize:[28,42],iconAnchor:[14,42]})
-};
+const map = L.map('map').setView([-18.8792, 47.5079], 6);
 
-let markers=[];
-fetch("../data/map-points.json")
-.then(r=>r.json())
-.then(d=>{
- d.points.forEach(p=>{
-  const m=L.marker([p.lat,p.lng],{icon:icons[p.type]})
-  .bindPopup(`
-   <strong>${p.name}</strong><br>
-   Type : ${p.type}<br>
-   Accessibilité : ${p.accessible?"✔":"❌"}<br>
-   ${p.access_details}<br>
-   Disponibilité : <b>${p.availability}</b><br>
-   <a href="bot-dashboard.html?from=${p.id}" class="btn btn-danger">🆘 Besoin d’aide</a>
-  `);
-  m._wtd=p;
-  m.addTo(map);
-  markers.push(m);
- });
-});
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap'
+}).addTo(map);
 
-function applyFilters(){
- markers.forEach(m=>{
-  const p=m._wtd;
-  const show =
-   (f_transport.checked||p.type!=="transport") &&
-   (f_relais.checked||p.type!=="relais") &&
-   (f_accessible.checked||p.accessible);
-  show?m.addTo(map):map.removeLayer(m);
- });
+/* =============================
+   2. COUCHE BOT
+============================= */
+
+const botLayer = L.layerGroup().addTo(map);
+
+/* =============================
+   3. ICÔNES SELON TYPE
+============================= */
+
+function getIcon(type) {
+  const icons = {
+    "accident_urgence": "🚨",
+    "transport_bloque": "🚌",
+    "route_probleme": "🚧",
+    "besoin_aide": "🧭",
+    "service_accessible": "♿"
+  };
+
+  return L.divIcon({
+    className: "bot-icon",
+    html: `<div style="font-size:22px">${icons[type] || "⚠️"}</div>`,
+    iconSize: [24, 24],
+    iconAnchor: [12, 12]
+  });
 }
-["f-transport","f-relais","f-accessible"]
-.forEach(id=>document.getElementById(id).onchange=applyFilters);
+
+/* =============================
+   4. EXPIRATION AUTOMATIQUE
+============================= */
+
+function isExpired(signal) {
+  if (!signal.expires_at) return false;
+  return new Date(signal.expires_at) < new Date();
+}
+
+/* =============================
+   5. CHARGEMENT DES SIGNAUX BOT
+============================= */
+
+async function loadBotSignals() {
+  try {
+    const res = await fetch("data/bot-signals.json", { cache: "no-store" });
+    const signals = await res.json();
+
+    botLayer.clearLayers();
+
+    signals
+      .filter(s => !isExpired(s))
+      .sort((a, b) => (b.priority || 0) - (a.priority || 0))
+      .forEach(signal => {
+
+        if (!signal.location || !signal.location.lat || !signal.location.lng) return;
+
+        const marker = L.marker(
+          [signal.location.lat, signal.location.lng],
+          { icon: getIcon(signal.type) }
+        );
+
+        const popup = `
+          <strong>${signal.type.replace("_", " ")}</strong><br/>
+          ${signal.location.label || ""}<br/>
+          ${signal.message || ""}<br/>
+          <small>
+            Statut : ${signal.status || "?"}<br/>
+            ${new Date(signal.created_at).toLocaleString()}
+          </small>
+        `;
+
+        marker.bindPopup(popup);
+        botLayer.addLayer(marker);
+      });
+
+  } catch (err) {
+    console.warn("Erreur chargement bot-signals.json", err);
+  }
+}
+
+/* =============================
+   6. RAFRAÎCHISSEMENT AUTO
+============================= */
+
+loadBotSignals();
+setInterval(loadBotSignals, 30000); // 30 secondes
+
 </script>
+
 </body>
 </html>
