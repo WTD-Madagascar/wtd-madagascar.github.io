@@ -5,7 +5,13 @@
   <title>Accueil – WTD-Madagascar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="WTD-Madagascar : information, orientation et accessibilité terrain pour les services, transports et relais locaux." />
-  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- CSS chargé dynamiquement via main.js -->
+  <link rel="stylesheet" data-main-css />
+
+  <!-- Base path & logique globale -->
+  <script src="assets/js/basepath.js"></script>
+  <script src="assets/js/main.js" defer></script>
 </head>
 
 <body>
@@ -19,13 +25,13 @@
     <p>Work-Test-Demo · Accessibilité · Territoires</p>
 
     <nav class="site-nav" aria-label="Navigation principale">
-      <a href="index.html" aria-current="page">Accueil</a>
-      <a href="services.html">Services</a>
-      <a href="transport-accessible.html">Transport</a>
-      <a href="map-services.html">Carte</a>
-      <a href="bot-dashboard.html">Bot</a>
-      <a href="inscription.html">Proposer un service</a>
-      <a href="statut-transparence.html">Statut & transparence</a>
+      <a data-href="index.html" aria-current="page">Accueil</a>
+      <a data-href="doc/services.html">Services</a>
+      <a data-href="doc/transport-accessible.html">Transport</a>
+      <a data-href="doc/map-services.html">Carte</a>
+      <a data-href="doc/bot-dashboard.html">Bot</a>
+      <a data-href="doc/inscription.html">Proposer un service</a>
+      <a data-href="doc/statut-transparence.html">Statut & transparence</a>
     </nav>
   </div>
 </header>
@@ -51,9 +57,9 @@
   <section class="card">
     <h2>Accès rapides</h2>
     <div class="actions">
-      <a class="btn" href="map-services.html">🗺️ Carte des services</a>
-      <a class="btn btn-secondary" href="transport-accessible.html">🚐 Transport accessible</a>
-      <a class="btn btn-secondary" href="services.html">📋 Tous les services</a>
+      <a class="btn" data-href="doc/map-services.html">🗺️ Carte des services</a>
+      <a class="btn btn-secondary" data-href="doc/transport-accessible.html">🚐 Transport accessible</a>
+      <a class="btn btn-secondary" data-href="doc/services.html">📋 Tous les services</a>
     </div>
   </section>
 
@@ -77,10 +83,10 @@
       aucune collecte de données personnelles</strong>.
     </p>
     <div class="actions">
-      <a class="btn btn-secondary" href="statut-transparence.html">
+      <a class="btn btn-secondary" data-href="doc/statut-transparence.html">
         📄 Lire le statut & la transparence
       </a>
-      <a class="btn btn-secondary" href="terrain/">
+      <a class="btn btn-secondary" data-href="doc/">
         📁 Accéder aux documents terrain
       </a>
     </div>
@@ -95,7 +101,7 @@
   <p>
     <small>
       Information · Orientation · Validation humaine ·
-      <a href="statut-transparence.html">Transparence</a>
+      <a data-href="doc/statut-transparence.html">Transparence</a>
     </small>
   </p>
 </footer>
