@@ -33,72 +33,85 @@ Aucune donnée personnelle • Signalement anonyme • Usage collectif
 /* =============================
    CARTE
 ============================= */
-const map=L.map("map").setView([-18.879,47.5079],6);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap"}).addTo(map);
-const botLayer=L.layerGroup().addTo(map);
+const map = L.map("map").setView([-18.879,47.5079],6);
+
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+  attribution:"© OpenStreetMap"
+}).addTo(map);
+
+const botLayer = L.layerGroup().addTo(map);
 
 /* =============================
    ICÔNES
 ============================= */
 function getIcon(type){
-const icons={
- accident_urgence:"🚨",
- transport_bloque:"🚌",
- route_probleme:"🚧",
- besoin_aide:"🧭",
- service_accessible:"♿"
-};
-return L.divIcon({
- className:"bot-icon",
- html:`<div style="font-size:22px">${icons[type]||"⚠️"}</div>`,
- iconSize:[24,24],
- iconAnchor:[12,12]
-});
+  const icons={
+    accident_urgence:"🚨",
+    transport_bloque:"🚌",
+    route_probleme:"🚧",
+    besoin_aide:"🧭",
+    service_accessible:"♿"
+  };
+  return L.divIcon({
+    className:"bot-icon",
+    html:`<div style="font-size:22px">${icons[type]||"⚠️"}</div>`,
+    iconSize:[24,24],
+    iconAnchor:[12,12]
+  });
 }
 
 /* =============================
    EXPIRATION
 ============================= */
 function expired(s){
- return s.expires_at && new Date(s.expires_at)<new Date();
+  return s.expires_at && new Date(s.expires_at) < new Date();
 }
 
 /* =============================
-   CHARGEMENT BOT
+   CHARGEMENT GOOGLE SHEET
 ============================= */
 async function loadBot(){
- try{
-  const r=await fetch("data/bot-signals.json",{cache:"no-store"});
-  const data=await r.json();
-  botLayer.clearLayers();
-  data
-   .filter(s=>!expired(s))
-   .sort((a,b)=>(b.priority||0)-(a.priority||0))
-   .forEach(s=>{
-    if(!s.location) return;
-    const m=L.marker(
-     [s.location.lat,s.location.lng],
-     {icon:getIcon(s.type)}
+  try{
+    const r = await fetch(
+      "https://opensheet.elk.sh/1953pIQSeQoe_1Iu_L-VRtKSN5GQRHMBy5HqnSaTB7io/WTD_MAP_SIGNALS",
+      { cache:"no-store" }
     );
-    m.bindPopup(`
-     <strong>${s.type.replace("_"," ")}</strong><br>
-     ${s.location.label||""}<br>
-     ${s.message||""}<br>
-     <small>${new Date(s.created_at).toLocaleString()}</small>
-    `);
-    botLayer.addLayer(m);
-   });
- }catch(e){console.warn(e);}
+    const data = await r.json();
+
+    botLayer.clearLayers();
+
+    data
+      .filter(s => s.lat && s.lng && !expired(s))
+      .sort((a,b)=>(Number(b.priority)||0)-(Number(a.priority)||0))
+      .forEach(s=>{
+        const marker = L.marker(
+          [Number(s.lat), Number(s.lng)],
+          { icon:getIcon(s.type) }
+        );
+
+        marker.bindPopup(`
+          <strong>${(s.type||"").replace("_"," ")}</strong><br>
+          ${s.label||""}<br>
+          ${s.message||""}<br>
+          <small>${new Date(s.created_at).toLocaleString()}</small>
+        `);
+
+        botLayer.addLayer(marker);
+      });
+
+  }catch(e){
+    console.warn("Erreur chargement données :", e);
+  }
 }
 
 loadBot();
 setInterval(loadBot,30000);
 
 /* =============================
-   OFFLINE
+   OFFLINE (optionnel)
 ============================= */
 if("serviceWorker" in navigator){
- navigator.serviceWorker.register("sw.js");
+  navigator.serviceWorker.register("sw.js");
 }
 </script>
 
