@@ -1,0 +1,38 @@
+{
+  "fr": {
+    "intro": "Je suis là avec vous. Respirez calmement.",
+    "lost": [
+      "Prenez une grande respiration.",
+      "Regardez autour de vous : êtes-vous dans un endroit public ?",
+      "Si possible, entrez dans un lieu avec du monde."
+    ],
+    "fear": [
+      "Vous n’êtes pas seul.",
+      "Votre sécurité est la priorité.",
+      "Vous pouvez demander de l’aide maintenant."
+    ],
+    "actions": {
+      "call": "Appeler quelqu’un",
+      "sos": "Je suis en danger",
+      "map": "Voir la carte autour de moi"
+    }
+  },
+  "mg": {
+    "intro": "Eto aho miaraka aminao. Miaina moramora.",
+    "lost": [
+      "Makà fofonaina lalina.",
+      "Jereo manodidina: misy olona ve?",
+      "Midira amin'ny toerana be olona raha azo atao."
+    ],
+    "fear": [
+      "Tsy irery ianao.",
+      "Ny fiarovana anao no zava-dehibe.",
+      "Afaka mangataka fanampiana ianao izao."
+    ],
+    "actions": {
+      "call": "Antsoy olona",
+      "sos": "Tandindomin-doza aho",
+      "map": "Jereo ny sarintany manodidina"
+    }
+  }
+}
