@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "name": "WTD Bot Madagascar",
+    "version": "1.0",
+    "last_update": "2026-01-26",
+    "language": "fr"
+  },
+  "status": "actif",
+  "welcome": "Bonjour, je suis le bot WTD Madagascar. Comment puis-je vous aider ?",
+  "intents": [
+    {
+      "id": "services",
+      "keywords": ["service", "aide", "accompagnement"],
+      "response": "Vous pouvez consulter les services disponibles dans la rubrique Services."
+    },
+    {
+      "id": "transport",
+      "keywords": ["transport", "bus", "taxi", "accessible"],
+      "response": "Les informations sur le transport accessible sont disponibles dans la section dédiée."
+    },
+    {
+      "id": "contact",
+      "keywords": ["contact", "email", "aide humaine"],
+      "response": "Vous pouvez proposer un service ou demander de l’aide via le formulaire d’inscription."
+    }
+  ]
+}
