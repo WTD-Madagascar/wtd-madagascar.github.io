@@ -1,147 +1,105 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>WTD Madagascar – Carte des services</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>WTD Madagascar – Carte des services</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Leaflet -->
-  <link rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: system-ui, sans-serif;
-    }
-
-    #header {
-      background: #0b4a6f;
-      color: #fff;
-      padding: 10px 14px;
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    #map {
-      height: calc(100% - 44px);
-      width: 100%;
-    }
-
-    .bot-icon {
-      text-align: center;
-      line-height: 1;
-    }
-  </style>
+<style>
+html,body{margin:0;height:100%;font-family:system-ui,sans-serif}
+#header{background:#0b4a6f;color:#fff;padding:10px;font-weight:700}
+#map{height:calc(100% - 50px)}
+.bot-icon{text-align:center}
+footer{font-size:11px;text-align:center;padding:4px}
+</style>
 </head>
 
 <body>
 
 <div id="header">
-  Un problème ? Signale-le. Tu aides les autres.
+Un problème ? Signale-le. Tu aides les autres.
 </div>
 
 <div id="map"></div>
 
+<footer>
+Aucune donnée personnelle • Signalement anonyme • Usage collectif
+</footer>
+
 <script>
 /* =============================
-   1. INITIALISATION DE LA CARTE
+   CARTE
 ============================= */
-
-const map = L.map('map').setView([-18.8792, 47.5079], 6);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap'
-}).addTo(map);
+const map=L.map("map").setView([-18.879,47.5079],6);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap"}).addTo(map);
+const botLayer=L.layerGroup().addTo(map);
 
 /* =============================
-   2. COUCHE BOT
+   ICÔNES
 ============================= */
-
-const botLayer = L.layerGroup().addTo(map);
-
-/* =============================
-   3. ICÔNES SELON TYPE
-============================= */
-
-function getIcon(type) {
-  const icons = {
-    "accident_urgence": "🚨",
-    "transport_bloque": "🚌",
-    "route_probleme": "🚧",
-    "besoin_aide": "🧭",
-    "service_accessible": "♿"
-  };
-
-  return L.divIcon({
-    className: "bot-icon",
-    html: `<div style="font-size:22px">${icons[type] || "⚠️"}</div>`,
-    iconSize: [24, 24],
-    iconAnchor: [12, 12]
-  });
+function getIcon(type){
+const icons={
+ accident_urgence:"🚨",
+ transport_bloque:"🚌",
+ route_probleme:"🚧",
+ besoin_aide:"🧭",
+ service_accessible:"♿"
+};
+return L.divIcon({
+ className:"bot-icon",
+ html:`<div style="font-size:22px">${icons[type]||"⚠️"}</div>`,
+ iconSize:[24,24],
+ iconAnchor:[12,12]
+});
 }
 
 /* =============================
-   4. EXPIRATION AUTOMATIQUE
+   EXPIRATION
 ============================= */
-
-function isExpired(signal) {
-  if (!signal.expires_at) return false;
-  return new Date(signal.expires_at) < new Date();
+function expired(s){
+ return s.expires_at && new Date(s.expires_at)<new Date();
 }
 
 /* =============================
-   5. CHARGEMENT DES SIGNAUX BOT
+   CHARGEMENT BOT
 ============================= */
-
-async function loadBotSignals() {
-  try {
-    const res = await fetch("data/bot-signals.json", { cache: "no-store" });
-    const signals = await res.json();
-
-    botLayer.clearLayers();
-
-    signals
-      .filter(s => !isExpired(s))
-      .sort((a, b) => (b.priority || 0) - (a.priority || 0))
-      .forEach(signal => {
-
-        if (!signal.location || !signal.location.lat || !signal.location.lng) return;
-
-        const marker = L.marker(
-          [signal.location.lat, signal.location.lng],
-          { icon: getIcon(signal.type) }
-        );
-
-        const popup = `
-          <strong>${signal.type.replace("_", " ")}</strong><br/>
-          ${signal.location.label || ""}<br/>
-          ${signal.message || ""}<br/>
-          <small>
-            Statut : ${signal.status || "?"}<br/>
-            ${new Date(signal.created_at).toLocaleString()}
-          </small>
-        `;
-
-        marker.bindPopup(popup);
-        botLayer.addLayer(marker);
-      });
-
-  } catch (err) {
-    console.warn("Erreur chargement bot-signals.json", err);
-  }
+async function loadBot(){
+ try{
+  const r=await fetch("data/bot-signals.json",{cache:"no-store"});
+  const data=await r.json();
+  botLayer.clearLayers();
+  data
+   .filter(s=>!expired(s))
+   .sort((a,b)=>(b.priority||0)-(a.priority||0))
+   .forEach(s=>{
+    if(!s.location) return;
+    const m=L.marker(
+     [s.location.lat,s.location.lng],
+     {icon:getIcon(s.type)}
+    );
+    m.bindPopup(`
+     <strong>${s.type.replace("_"," ")}</strong><br>
+     ${s.location.label||""}<br>
+     ${s.message||""}<br>
+     <small>${new Date(s.created_at).toLocaleString()}</small>
+    `);
+    botLayer.addLayer(m);
+   });
+ }catch(e){console.warn(e);}
 }
 
+loadBot();
+setInterval(loadBot,30000);
+
 /* =============================
-   6. RAFRAÎCHISSEMENT AUTO
+   OFFLINE
 ============================= */
-
-loadBotSignals();
-setInterval(loadBotSignals, 30000); // 30 secondes
-
+if("serviceWorker" in navigator){
+ navigator.serviceWorker.register("sw.js");
+}
 </script>
 
 </body>
