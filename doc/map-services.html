@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Carte des services – WTD-Madagascar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Carte terrain WTD-Madagascar : services accessibles, transports, relais locaux et partenaires." />
+
+  <!-- CSS RGAA -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+    defer
+  ></script>
+</head>
+
+<body>
+
+<!-- Accès rapide clavier -->
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+
+<header class="site-header">
+  <div class="container">
+    <h1>WTD-Madagascar</h1>
+    <p>Cartographie terrain & inclusion</p>
+
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="services.html">Services</a>
+      <a href="transport-accessible.html">Transport</a>
+      <a href="map-services.html" aria-current="page">Carte</a>
+      <a href="bot-dashboard.html">Bot</a>
+      <a href="inscription.html">Proposer un service</a>
+      <a href="statut-transparence.html">Statut & transparence</a>
+      <a href="institutions-partenaires.html">Institutions</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenu">
+
+  <!-- ====== PRÉSENTATION ====== -->
+  <section class="card">
+    <span class="badge badge-info">Carte terrain</span>
+    <h2>Carte des services & transports accessibles</h2>
+    <p>
+      Cette carte recense progressivement les <strong>services utiles</strong> :
+      transports accessibles, points relais, accompagnement humain,
+      services sociaux et partenaires terrain.
+    </p>
+    <p class="small">
+      Tsy fanaraha-maso ity sarintany ity. Tsy misy angon-drakitra manokana
+      voatahiry na arahina.
+    </p>
+  </section>
+
+  <!-- ====== CARTE ====== -->
+  <section class="card">
+    <h2>Carte interactive</h2>
+    <div
+      id="map"
+      role="region"
+      aria-label="Carte interactive des services WTD-Madagascar"
+      style="height:480px;border-radius:12px;"
+    ></div>
+
+    <p class="small">
+      Astuce accessibilité : utilisez le zoom (+ / −) et les contrôles clavier
+      de votre navigateur pour naviguer sur la carte.
+    </p>
+  </section>
+
+  <!-- ====== ÉVOLUTIONS ====== -->
+  <section class="card">
+    <h2>Évolutions prévues</h2>
+    <ul>
+      <li>Filtres par type de service</li>
+      <li>Niveau d’accessibilité (progressif)</li>
+      <li>Ajout collaboratif depuis le terrain</li>
+      <li>Mode hors-ligne (déploiement progressif)</li>
+    </ul>
+  </section>
+
+  <!-- ====== LIENS UTILES ====== -->
+  <section class="card">
+    <h2>Liens utiles</h2>
+    <ul>
+      <li><a href="services.html">📋 Voir tous les services</a></li>
+      <li><a href="transport-accessible.html">🚐 Transports accessibles</a></li>
+      <li><a href="inscription.html">➕ Proposer un point ou un service</a></li>
+      <li><a href="terrain/">📄 Documents terrain (PDF)</a></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>
+    © WTD-Madagascar — Cartographie terrain & inclusion
+  </p>
+  <p>
+    <small>
+      Aucune donnée personnelle collectée · Orientation uniquement ·
+      <a href="statut-transparence.html">Transparence</a>
+    </small>
+  </p>
+</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Initialisation de la carte (centre Madagascar)
+    const map = L.map("map").setView([-18.8792, 47.5079], 6);
+
+    // Fond de carte OpenStreetMap
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    // Exemple de point (Antananarivo)
+    L.marker([-18.8792, 47.5079])
+      .addTo(map)
+      .bindPopup("<strong>Antananarivo</strong><br>Zone pilote WTD");
+  });
+</script>
+
+</body>
+</html>

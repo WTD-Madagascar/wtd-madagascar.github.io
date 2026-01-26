@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inscription – Proposer un service | WTD-Madagascar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Formulaire WTD-Madagascar pour proposer un service accessible ou devenir relais terrain (transport, accompagnement, aide humaine)." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+
+<!-- Accès rapide clavier -->
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+
+<header class="site-header">
+  <div class="container">
+    <h1>WTD-Madagascar</h1>
+    <p>Information · Orientation · Terrain</p>
+
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="services.html">Services</a>
+      <a href="transport-accessible.html">Transport</a>
+      <a href="map-services.html">Carte</a>
+      <a href="bot-dashboard.html">Bot</a>
+      <a href="inscription.html" aria-current="page">Proposer un service</a>
+      <a href="statut-transparence.html">Statut & transparence</a>
+      <a href="institutions-partenaires.html">Institutions</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenu">
+
+  <!-- ====== INTRO ====== -->
+  <section class="card">
+    <h2>Proposer un service / Devenir relais WTD</h2>
+    <p>
+      Ce formulaire permet de proposer un <strong>service accessible</strong>
+      (transport, accompagnement, relais local, aide humaine)
+      dans le cadre du programme <strong>WTD-Madagascar</strong>.
+    </p>
+    <p class="small">
+      Ity taratasy ity dia natao hanolorana tolotra na fanampiana
+      (fitaterana, fanohanana, relais eny an-tanàna)
+      ao anatin’ny programa WTD-Madagascar.
+    </p>
+  </section>
+
+  <!-- ====== ÉTHIQUE ====== -->
+  <section class="card">
+    <h2>Engagement éthique WTD</h2>
+    <ul>
+      <li>✔ Aucune collecte de données sensibles</li>
+      <li>✔ Aucune décision automatique</li>
+      <li>✔ Validation humaine et terrain</li>
+    </ul>
+    <p class="small">
+      Tsy misy fanangonana angon-drakitra saro-pady.
+      Tsy misy fanapahan-kevitra mandeha ho azy.
+      Olombelona sy terrain no manamarina.
+    </p>
+  </section>
+
+  <!-- ====== FORMULAIRE ====== -->
+  <section class="card">
+    <h2>Formulaire de proposition</h2>
+
+    <form action="#" method="post">
+
+      <label for="nom">Nom / Nom de la structure</label>
+      <input id="nom" name="nom" type="text" placeholder="Ex : Taxi solidaire, association…" required />
+
+      <label for="nom_mg">Anarana / Anaran'ny fikambanana</label>
+      <input id="nom_mg" name="nom_mg" type="text" />
+
+      <label for="zone">Zone géographique</label>
+      <input id="zone" name="zone" type="text" placeholder="Ville, région, fokontany…" required />
+
+      <label for="zone_mg">Faritra / Toerana</label>
+      <input id="zone_mg" name="zone_mg" type="text" />
+
+      <label for="type">Type de service</label>
+      <select id="type" name="type" required>
+        <option value="">— Choisir —</option>
+        <option>Transport accessible</option>
+        <option>Accompagnement humain</option>
+        <option>Relais associatif</option>
+        <option>Autre</option>
+      </select>
+
+      <label for="contact">Contact (téléphone ou email)</label>
+      <input id="contact" name="contact" type="text" required />
+
+      <label for="message">Message / Fanazavana fanampiny</label>
+      <textarea id="message" name="message" rows="4"></textarea>
+
+      <button type="submit" class="btn">
+        Envoyer la proposition
+      </button>
+
+    </form>
+
+    <p class="small">
+      <strong>Important :</strong> un humain WTD vous recontactera après lecture.<br>
+      Zava-dehibe : olona avy amin’ny WTD no hifandray aminao aorian’ny famakiana.
+    </p>
+
+  </section>
+
+  <!-- ====== RETOUR ====== -->
+  <section class="card">
+    <a href="index.html">← Retour à l’accueil</a>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>
+    © WTD-Madagascar — Projet citoyen, humain et non automatisé
+  </p>
+  <p>
+    <small>
+      Aucune donnée personnelle collectée · Orientation uniquement ·
+      <a href="statut-transparence.html">Transparence</a>
+    </small>
+  </p>
+</footer>
+
+</body>
+</html>
