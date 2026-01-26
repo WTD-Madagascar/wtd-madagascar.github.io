@@ -1,0 +1,28 @@
+{
+  "points": [
+    {
+      "id": "antananarivo_centre",
+      "name": "Antananarivo – Centre",
+      "lat": -18.8792,
+      "lng": 47.5079,
+      "type": "ville",
+      "accessible": true
+    },
+    {
+      "id": "antenne_fianarantsoa",
+      "name": "Antenne WTD Fianarantsoa",
+      "lat": -21.4536,
+      "lng": 47.0857,
+      "type": "antenne",
+      "accessible": true
+    },
+    {
+      "id": "transport_terminal",
+      "name": "Terminal transport local",
+      "lat": -18.9100,
+      "lng": 47.5250,
+      "type": "transport",
+      "accessible": false
+    }
+  ]
+}
