@@ -1,0 +1,25 @@
+{
+  "services": [
+    {
+      "id": "transport_accessible",
+      "title": "Transport accessible",
+      "description": "Informations sur les moyens de transport accessibles aux personnes à mobilité réduite.",
+      "category": "transport",
+      "active": true
+    },
+    {
+      "id": "orientation_locale",
+      "title": "Orientation locale",
+      "description": "Aide à l’orientation vers les services locaux et partenaires.",
+      "category": "accompagnement",
+      "active": true
+    },
+    {
+      "id": "signalement",
+      "title": "Signalement terrain",
+      "description": "Remontée d’informations terrain (accessibilité, obstacles, besoins).",
+      "category": "terrain",
+      "active": true
+    }
+  ]
+}
