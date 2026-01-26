@@ -5,7 +5,13 @@
   <title>Statut & transparence – WTD-Madagascar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Statut, transparence et cadre éthique du programme WTD-Madagascar : usages, limites, bot, données et relations institutionnelles." />
-  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- CSS chargé dynamiquement -->
+  <link rel="stylesheet" data-main-css />
+
+  <!-- Base path & logique globale -->
+  <script src="../assets/js/basepath.js"></script>
+  <script src="../assets/js/main.js" defer></script>
 </head>
 
 <body>
@@ -19,14 +25,14 @@
     <p>Statut & transparence</p>
 
     <nav class="site-nav" aria-label="Navigation principale">
-      <a href="index.html">Accueil</a>
-      <a href="services.html">Services</a>
-      <a href="transport-accessible.html">Transport</a>
-      <a href="map-services.html">Carte</a>
-      <a href="bot-dashboard.html">Bot</a>
-      <a href="inscription.html">Proposer un service</a>
-      <a href="statut-transparence.html" aria-current="page">Statut & transparence</a>
-      <a href="institutions-partenaires.html">Institutions</a>
+      <a data-href="index.html">Accueil</a>
+      <a data-href="doc/services.html">Services</a>
+      <a data-href="doc/transport-accessible.html">Transport</a>
+      <a data-href="doc/map-services.html">Carte</a>
+      <a data-href="doc/bot-dashboard.html">Bot</a>
+      <a data-href="doc/inscription.html">Proposer un service</a>
+      <a data-href="doc/statut-transparence.html" aria-current="page">Statut & transparence</a>
+      <a data-href="doc/institutions-partenaires.html">Institutions</a>
     </nav>
   </div>
 </header>
@@ -104,4 +110,48 @@
     <p class="small">
       Toute interaction avec une autorité reste humaine, volontaire et contextuelle.
     </p>
-  </sect
+  </section>
+
+  <!-- ====== DONNÉES ====== -->
+  <section class="card">
+    <h2>🔐 Données & respect de la vie privée</h2>
+    <ul>
+      <li>✔ Aucune donnée personnelle collectée</li>
+      <li>✔ Aucun compte utilisateur requis</li>
+      <li>✔ Aucune géolocalisation individuelle</li>
+      <li>✔ Données cartographiques non nominatives</li>
+    </ul>
+    <p class="small">
+      WTD-Madagascar privilégie la sobriété numérique et le respect des personnes.
+    </p>
+  </section>
+
+  <!-- ====== ÉVOLUTION ====== -->
+  <section class="card">
+    <h2>📈 Évolution & transparence</h2>
+    <p>
+      Le programme évolue de manière progressive,
+      en lien avec le terrain, les associations et les retours utilisateurs.
+    </p>
+    <p>
+      Toute évolution significative (fonctionnelle ou éthique)
+      est documentée publiquement.
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>
+    © WTD-Madagascar — Projet citoyen, humain et non automatisé
+  </p>
+  <p>
+    <small>
+      Aucune donnée personnelle collectée · Orientation uniquement ·
+      <a data-href="doc/statut-transparence.html">Transparence</a>
+    </small>
+  </p>
+</footer>
+
+</body>
+</html>
