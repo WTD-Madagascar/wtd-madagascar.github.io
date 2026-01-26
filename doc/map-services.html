@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Carte terrain WTD-Madagascar : services accessibles, transports, relais locaux et partenaires." />
 
-  <!-- CSS RGAA -->
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- CSS chargé dynamiquement -->
+  <link rel="stylesheet" data-main-css />
 
   <!-- Leaflet -->
   <link
@@ -16,6 +16,11 @@
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""
   />
+
+  <!-- Base path & logique globale -->
+  <script src="../assets/js/basepath.js"></script>
+  <script src="../assets/js/main.js" defer></script>
+
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -35,14 +40,14 @@
     <p>Cartographie terrain & inclusion</p>
 
     <nav class="site-nav" aria-label="Navigation principale">
-      <a href="index.html">Accueil</a>
-      <a href="services.html">Services</a>
-      <a href="transport-accessible.html">Transport</a>
-      <a href="map-services.html" aria-current="page">Carte</a>
-      <a href="bot-dashboard.html">Bot</a>
-      <a href="inscription.html">Proposer un service</a>
-      <a href="statut-transparence.html">Statut & transparence</a>
-      <a href="institutions-partenaires.html">Institutions</a>
+      <a data-href="index.html">Accueil</a>
+      <a data-href="doc/services.html">Services</a>
+      <a data-href="doc/transport-accessible.html">Transport</a>
+      <a data-href="doc/map-services.html" aria-current="page">Carte</a>
+      <a data-href="doc/bot-dashboard.html">Bot</a>
+      <a data-href="doc/inscription.html">Proposer un service</a>
+      <a data-href="doc/statut-transparence.html">Statut & transparence</a>
+      <a data-href="doc/institutions-partenaires.html">Institutions</a>
     </nav>
   </div>
 </header>
@@ -67,6 +72,7 @@
   <!-- ====== CARTE ====== -->
   <section class="card">
     <h2>Carte interactive</h2>
+
     <div
       id="map"
       role="region"
@@ -75,8 +81,8 @@
     ></div>
 
     <p class="small">
-      Astuce accessibilité : utilisez le zoom (+ / −) et les contrôles clavier
-      de votre navigateur pour naviguer sur la carte.
+      Astuce accessibilité : utilisez le zoom (+ / −), le clavier
+      et les commandes du navigateur pour naviguer.
     </p>
   </section>
 
@@ -86,7 +92,7 @@
     <ul>
       <li>Filtres par type de service</li>
       <li>Niveau d’accessibilité (progressif)</li>
-      <li>Ajout collaboratif depuis le terrain</li>
+      <li>Ajout collaboratif validé humainement</li>
       <li>Mode hors-ligne (déploiement progressif)</li>
     </ul>
   </section>
@@ -95,10 +101,10 @@
   <section class="card">
     <h2>Liens utiles</h2>
     <ul>
-      <li><a href="services.html">📋 Voir tous les services</a></li>
-      <li><a href="transport-accessible.html">🚐 Transports accessibles</a></li>
-      <li><a href="inscription.html">➕ Proposer un point ou un service</a></li>
-      <li><a href="terrain/">📄 Documents terrain (PDF)</a></li>
+      <li><a data-href="doc/services.html">📋 Voir tous les services</a></li>
+      <li><a data-href="doc/transport-accessible.html">🚐 Transports accessibles</a></li>
+      <li><a data-href="doc/inscription.html">➕ Proposer un point ou un service</a></li>
+      <li><a data-href="doc/terrain/">📄 Documents terrain (PDF)</a></li>
     </ul>
   </section>
 
@@ -111,26 +117,54 @@
   <p>
     <small>
       Aucune donnée personnelle collectée · Orientation uniquement ·
-      <a href="statut-transparence.html">Transparence</a>
+      <a data-href="doc/statut-transparence.html">Transparence</a>
     </small>
   </p>
 </footer>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Initialisation de la carte (centre Madagascar)
-    const map = L.map("map").setView([-18.8792, 47.5079], 6);
+document.addEventListener("DOMContentLoaded", function () {
 
-    // Fond de carte OpenStreetMap
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "&copy; OpenStreetMap contributors"
-    }).addTo(map);
+  // Initialisation carte (Madagascar)
+  const map = L.map("map", {
+    scrollWheelZoom: true,
+    keyboard: true
+  }).setView([-18.8792, 47.5079], 6);
 
-    // Exemple de point (Antananarivo)
-    L.marker([-18.8792, 47.5079])
-      .addTo(map)
-      .bindPopup("<strong>Antananarivo</strong><br>Zone pilote WTD");
+  // Fond OpenStreetMap (léger, RGAA-friendly)
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(map);
+
+  // Icône accessible simple
+  const iconService = L.icon({
+    iconUrl: BASE_PATH + "assets/img/marker-service.png",
+    iconSize: [28, 42],
+    iconAnchor: [14, 42],
+    popupAnchor: [0, -36]
   });
+
+  // Chargement des points depuis data/map-points.json
+  fetch(BASE_PATH + "data/map-points.json")
+    .then(res => res.json())
+    .then(data => {
+      data.points.forEach(point => {
+        L.marker([point.lat, point.lng], { icon: iconService })
+          .addTo(map)
+          .bindPopup(
+            "<strong>" + point.name + "</strong><br>" +
+            (point.type || "Service") +
+            (point.accessible ? "<br>✔ Accessible" : "")
+          );
+      });
+    })
+    .catch(() => {
+      // Fallback minimal si JSON indisponible
+      L.marker([-18.8792, 47.5079]).addTo(map)
+        .bindPopup("<strong>Antananarivo</strong><br>Zone pilote WTD");
+    });
+
+});
 </script>
 
 </body>
