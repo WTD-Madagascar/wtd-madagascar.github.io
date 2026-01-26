@@ -5,12 +5,17 @@
   <title>Transport accessible – WTD-Madagascar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Transports accessibles à Madagascar : taxis, véhicules adaptés, accompagnement humain et solutions terrain via WTD-Madagascar." />
-  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- CSS chargé dynamiquement -->
+  <link rel="stylesheet" data-main-css />
+
+  <!-- Base path & logique globale -->
+  <script src="../assets/js/basepath.js"></script>
+  <script src="../assets/js/main.js" defer></script>
 </head>
 
 <body>
 
-<!-- Accès rapide clavier -->
 <a class="skip-link" href="#contenu">Aller au contenu</a>
 
 <header class="site-header">
@@ -19,21 +24,21 @@
     <p>Transport accessible & inclusion</p>
 
     <nav class="site-nav" aria-label="Navigation principale">
-      <a href="index.html">Accueil</a>
-      <a href="services.html">Services</a>
-      <a href="transport-accessible.html" aria-current="page">Transport</a>
-      <a href="map-services.html">Carte</a>
-      <a href="bot-dashboard.html">Bot</a>
-      <a href="inscription.html">Proposer un service</a>
-      <a href="statut-transparence.html">Statut & transparence</a>
-      <a href="institutions-partenaires.html">Institutions</a>
+      <a data-href="index.html">Accueil</a>
+      <a data-href="doc/services.html">Services</a>
+      <a data-href="doc/transport-accessible.html" aria-current="page">Transport</a>
+      <a data-href="doc/map-services.html">Carte</a>
+      <a data-href="doc/bot-dashboard.html">Bot</a>
+      <a data-href="doc/inscription.html">Proposer un service</a>
+      <a data-href="doc/statut-transparence.html">Statut & transparence</a>
+      <a data-href="doc/institutions-partenaires.html">Institutions</a>
     </nav>
   </div>
 </header>
 
 <main id="contenu">
 
-  <!-- ====== INTRO ====== -->
+  <!-- INTRO -->
   <section class="card">
     <span class="badge badge-info">Terrain</span>
     <h2>Transport accessible</h2>
@@ -47,7 +52,19 @@
     </p>
   </section>
 
-  <!-- ====== OBJECTIFS ====== -->
+  <!-- COMPTEUR -->
+  <section class="card" aria-live="polite">
+    <h2>Disponibilités estimées</h2>
+    <p>
+      <strong id="places-count">—</strong>
+      places libres recensées sur des transports accessibles
+    </p>
+    <p class="small">
+      Données indicatives issues du terrain, mises à jour manuellement.
+    </p>
+  </section>
+
+  <!-- OBJECTIFS -->
   <section class="card">
     <h2>Objectifs</h2>
     <ul>
@@ -57,7 +74,7 @@
     </ul>
   </section>
 
-  <!-- ====== TYPES ====== -->
+  <!-- TYPES -->
   <section class="card">
     <h2>Types de solutions</h2>
     <ul>
@@ -68,28 +85,28 @@
     </ul>
   </section>
 
-  <!-- ====== FONCTIONNEMENT ====== -->
+  <!-- FONCTIONNEMENT -->
   <section class="card">
     <h2>Fonctionnement WTD</h2>
     <ul>
       <li>Recensement depuis le terrain</li>
-      <li>Validation par usage réel</li>
+      <li>Validation humaine</li>
       <li>Mise à jour progressive</li>
       <li>Accès hors-ligne (déploiement progressif)</li>
     </ul>
   </section>
 
-  <!-- ====== ACCÈS RAPIDES ====== -->
+  <!-- ACCÈS RAPIDES -->
   <section class="card">
     <h2>Accès rapides</h2>
     <div class="actions">
-      <a class="btn" href="map-services.html">🗺️ Voir sur la carte</a>
-      <a class="btn btn-secondary" href="inscription.html">➕ Proposer un service</a>
-      <a class="btn btn-secondary" href="terrain/">📄 Documents terrain</a>
+      <a class="btn" data-href="doc/map-services.html">🗺️ Voir sur la carte</a>
+      <a class="btn btn-secondary" data-href="doc/inscription.html">➕ Proposer un service</a>
+      <a class="btn btn-secondary" data-href="doc/terrain/">📄 Documents terrain</a>
     </div>
   </section>
 
-  <!-- ====== À VENIR ====== -->
+  <!-- À VENIR -->
   <section class="card">
     <h2>Évolutions prévues</h2>
     <ul>
@@ -102,16 +119,41 @@
 </main>
 
 <footer class="site-footer">
-  <p>
-    © WTD-Madagascar — Transport accessible & inclusion
-  </p>
+  <p>© WTD-Madagascar — Transport accessible & inclusion</p>
   <p>
     <small>
       Information · Orientation · Validation humaine ·
-      <a href="statut-transparence.html">Transparence</a>
+      <a data-href="doc/statut-transparence.html">Transparence</a>
     </small>
   </p>
 </footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  fetch(BASE_PATH + "data/transports.json")
+    .then(res => res.json())
+    .then(data => {
+      let totalPlaces = 0;
+
+      data.transports.forEach(t => {
+        if (
+          t.accessible === true &&
+          t.places_disponibles > 0 &&
+          t.statut === "disponible"
+        ) {
+          totalPlaces += t.places_disponibles;
+        }
+      });
+
+      document.getElementById("places-count").textContent = totalPlaces;
+    })
+    .catch(() => {
+      document.getElementById("places-count").textContent = "indisponible";
+    });
+
+});
+</script>
 
 </body>
 </html>
