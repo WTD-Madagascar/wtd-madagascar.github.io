@@ -1,0 +1,35 @@
+{
+  "updated_at": "2026-01-26",
+  "transports": [
+    {
+      "id": "taxi_tana_01",
+      "type": "taxi",
+      "ville": "Antananarivo",
+      "places_totales": 4,
+      "places_disponibles": 2,
+      "accessible": true,
+      "statut": "disponible",
+      "validated": true
+    },
+    {
+      "id": "minibus_fianar_02",
+      "type": "minibus",
+      "ville": "Fianarantsoa",
+      "places_totales": 8,
+      "places_disponibles": 0,
+      "accessible": partiel,
+      "statut": "complet",
+      "validated": true
+    },
+    {
+      "id": "relais_tulear_01",
+      "type": "relais_humain",
+      "ville": "Tuléar",
+      "places_totales": 1,
+      "places_disponibles": 1,
+      "accessible": true,
+      "statut": "disponible",
+      "validated": false
+    }
+  ]
+}
