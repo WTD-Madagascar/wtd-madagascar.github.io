@@ -5,7 +5,13 @@
   <title>Bot d’information – WTD-Madagascar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Bot d’information WTD-Madagascar : assistant d’orientation citoyenne, sans automatisation ni collecte de données." />
-  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- CSS chargé dynamiquement -->
+  <link rel="stylesheet" data-main-css />
+
+  <!-- Base path & logique globale -->
+  <script src="../assets/js/basepath.js"></script>
+  <script src="../assets/js/main.js" defer></script>
 </head>
 
 <body>
@@ -19,14 +25,14 @@
     <p>Information · Orientation · Terrain</p>
 
     <nav class="site-nav" aria-label="Navigation principale">
-      <a href="index.html">Accueil</a>
-      <a href="services.html">Services</a>
-      <a href="transport-accessible.html">Transport</a>
-      <a href="map-services.html">Carte</a>
-      <a href="bot-dashboard.html" aria-current="page">Bot</a>
-      <a href="inscription.html">Proposer un service</a>
-      <a href="statut-transparence.html">Statut & transparence</a>
-      <a href="institutions-partenaires.html">Institutions</a>
+      <a data-href="index.html">Accueil</a>
+      <a data-href="doc/services.html">Services</a>
+      <a data-href="doc/transport-accessible.html">Transport</a>
+      <a data-href="doc/map-services.html">Carte</a>
+      <a data-href="doc/bot-dashboard.html" aria-current="page">Bot</a>
+      <a data-href="doc/inscription.html">Proposer un service</a>
+      <a data-href="doc/statut-transparence.html">Statut & transparence</a>
+      <a data-href="doc/institutions-partenaires.html">Institutions</a>
     </nav>
   </div>
 </header>
@@ -95,9 +101,9 @@
   <section class="card">
     <h2>Accès rapides</h2>
     <div class="actions">
-      <a class="btn" href="map-services.html">📍 Voir la carte des services</a>
-      <a class="btn btn-secondary" href="inscription.html">✍️ Proposer un service</a>
-      <a class="btn btn-secondary" href="terrain/">📄 Documents terrain</a>
+      <a class="btn" data-href="doc/map-services.html">📍 Voir la carte des services</a>
+      <a class="btn btn-secondary" data-href="doc/inscription.html">✍️ Proposer un service</a>
+      <a class="btn btn-secondary" data-href="doc/">📄 Documents terrain</a>
     </div>
   </section>
 
@@ -110,7 +116,7 @@
   <p>
     <small>
       Aucune donnée personnelle collectée · Orientation uniquement ·
-      <a href="statut-transparence.html">Transparence</a>
+      <a data-href="doc/statut-transparence.html">Transparence</a>
     </small>
   </p>
 </footer>
