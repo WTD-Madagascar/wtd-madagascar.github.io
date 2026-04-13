@@ -2,138 +2,140 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Inscription – Proposer un service | WTD-Madagascar</title>
+  <title>WTD-Madagascar – Proposer un service</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Formulaire WTD-Madagascar pour proposer un service accessible ou devenir relais terrain (transport, accompagnement, aide humaine)." />
+  <meta
+    name="description"
+    content="Formulaire WTD-Madagascar pour proposer un service, un relais local ou une ressource utile."
+  />
 
-  <!-- CSS chargé dynamiquement -->
   <link rel="stylesheet" data-main-css />
 
-  <!-- Base path & logique globale -->
   <script src="../assets/js/basepath.js"></script>
   <script src="../assets/js/main.js" defer></script>
 </head>
 
 <body>
 
-<!-- Accès rapide clavier -->
 <a class="skip-link" href="#contenu">Aller au contenu</a>
 
 <header class="site-header">
   <div class="container">
-    <h1>WTD-Madagascar</h1>
-    <p>Information · Orientation · Terrain</p>
+    <h1><a data-href="../index.html">WTD-Madagascar</a></h1>
+    <p>Contribuer · Relais terrain · Proposition de service</p>
 
     <nav class="site-nav" aria-label="Navigation principale">
-      <a data-href="index.html">Accueil</a>
-      <a data-href="doc/services.html">Services</a>
-      <a data-href="doc/transport-accessible.html">Transport</a>
-      <a data-href="doc/map-services.html">Carte</a>
-      <a data-href="doc/bot-dashboard.html">Bot</a>
-      <a data-href="doc/inscription.html" aria-current="page">Proposer un service</a>
-      <a data-href="doc/statut-transparence.html">Statut & transparence</a>
-      <a data-href="doc/institutions-partenaires.html">Institutions</a>
+      <a data-href="../index.html">Accueil</a>
+      <a data-href="services.html">Services</a>
+      <a data-href="transport-accessible.html">Transport</a>
+      <a data-href="map-services.html">Carte</a>
+      <a data-href="bot-dashboard.html">IA-Agent</a>
+      <a data-href="inscription.html" aria-current="page">Proposer un service</a>
+      <a data-href="statut-transparence.html">Statut & transparence</a>
     </nav>
   </div>
 </header>
 
 <main id="contenu">
 
-  <!-- ====== INTRO ====== -->
-  <section class="card">
-    <h2>Proposer un service / Devenir relais WTD</h2>
+  <section class="card hero">
+    <h2>Proposer un service ou un relais local</h2>
     <p>
-      Ce formulaire permet de proposer un <strong>service accessible</strong>
-      (transport, accompagnement, relais local, aide humaine)
-      dans le cadre du programme <strong>WTD-Madagascar</strong>.
+      Cette page permet de signaler un service, un point relais ou une ressource
+      utile pouvant être ajoutée à l’écosystème WTD-Madagascar.
     </p>
-    <p class="small">
-      Ity taratasy ity dia natao hanolorana tolotra na fanampiana
-      (fitaterana, fanohanana, relais eny an-tanàna)
-      ao anatin’ny programa WTD-Madagascar.
+    <p>
+      L’ajout n’est pas automatique. Les propositions doivent être relues,
+      vérifiées et intégrées avec prudence.
     </p>
   </section>
 
-  <!-- ====== ÉTHIQUE ====== -->
   <section class="card">
-    <h2>Engagement éthique WTD</h2>
+    <h2>Avant de proposer</h2>
     <ul>
-      <li>✔ Aucune collecte de données sensibles</li>
-      <li>✔ Aucune décision automatique</li>
-      <li>✔ Validation humaine et terrain</li>
+      <li>vérifie que le service ou relais existe réellement,</li>
+      <li>évite d’envoyer des données personnelles sensibles inutiles,</li>
+      <li>décris le service de manière simple, claire et utile,</li>
+      <li>précise si l’information doit être confirmée localement.</li>
     </ul>
-    <p class="small">
-      Tsy misy fanangonana angon-drakitra saro-pady.
-      Tsy misy fanapahan-kevitra mandeha ho azy.
-      Olombelona sy terrain no manamarina.
-    </p>
   </section>
 
-  <!-- ====== FORMULAIRE ====== -->
   <section class="card">
-    <h2>Formulaire de proposition</h2>
+    <h2>Formulaire</h2>
 
     <form action="#" method="post" novalidate>
+      <label for="nom-service">Nom du service ou du relais</label>
+      <input id="nom-service" name="nom-service" type="text" />
+      <p class="help">Exemple : point relais, association, structure locale, service utile.</p>
 
-      <label for="nom">Nom / Nom de la structure</label>
-      <input id="nom" name="nom" type="text"
-             placeholder="Ex : Taxi solidaire, association…"
-             required />
-
-      <label for="nom_mg">Anarana / Anaran'ny fikambanana</label>
-      <input id="nom_mg" name="nom_mg" type="text" />
-
-      <label for="zone">Zone géographique</label>
-      <input id="zone" name="zone" type="text"
-             placeholder="Ville, région, fokontany…"
-             required />
-
-      <label for="zone_mg">Faritra / Toerana</label>
-      <input id="zone_mg" name="zone_mg" type="text" />
-
-      <label for="type">Type de service</label>
-      <select id="type" name="type" required>
-        <option value="">— Choisir —</option>
-        <option value="transport">Transport accessible</option>
-        <option value="accompagnement">Accompagnement humain</option>
-        <option value="relais">Relais associatif</option>
+      <label for="categorie">Catégorie</label>
+      <select id="categorie" name="categorie">
+        <option value="">Choisir une catégorie</option>
+        <option value="service">Service</option>
+        <option value="relais">Relais local</option>
+        <option value="transport">Transport / mobilité</option>
+        <option value="accompagnement">Accompagnement</option>
         <option value="autre">Autre</option>
       </select>
 
-      <label for="contact">Contact (téléphone ou email)</label>
-      <input id="contact" name="contact" type="text" required />
+      <label for="zone">Zone ou localité</label>
+      <input id="zone" name="zone" type="text" />
+      <p class="help">Exemple : commune, quartier, fokontany, secteur.</p>
 
-      <label for="message">Message / Fanazavana fanampiny</label>
-      <textarea id="message" name="message" rows="4"></textarea>
+      <label for="description">Description utile</label>
+      <textarea id="description" name="description" rows="6"></textarea>
+      <p class="help">Décris à quoi sert le service, pour qui, et comment il peut aider.</p>
 
-      <button type="submit" class="btn">
-        Envoyer la proposition
-      </button>
+      <label for="contact">Contact ou point d’information</label>
+      <input id="contact" name="contact" type="text" />
+      <p class="help">Évite d’indiquer des données personnelles sensibles si elles ne sont pas nécessaires.</p>
 
+      <label for="observation">Observation complémentaire</label>
+      <textarea id="observation" name="observation" rows="4"></textarea>
+      <p class="help">Exemple : horaires variables, accès difficile, confirmation locale recommandée.</p>
+
+      <div class="hint">
+        <p>
+          <strong>Important :</strong> une proposition envoyée n’est pas une publication immédiate.
+          Elle peut nécessiter une relecture, une vérification ou une reformulation.
+        </p>
+      </div>
+
+      <div class="actions">
+        <button class="btn" type="submit">Envoyer la proposition</button>
+        <a class="btn btn-secondary" data-href="../index.html">Retour à l’accueil</a>
+      </div>
     </form>
-
-    <p class="small">
-      <strong>Important :</strong> un humain WTD vous recontactera après lecture.<br />
-      Zava-dehibe : olona avy amin’ny WTD no hifandray aminao aorian’ny famakiana.
-    </p>
-
   </section>
 
-  <!-- ====== RETOUR ====== -->
   <section class="card">
-    <a data-href="index.html">← Retour à l’accueil</a>
+    <h2>Principe de prudence</h2>
+    <div class="logic-box">
+      <p>
+        WTD-Madagascar privilégie l’utilité, la clarté et la vérifiabilité.
+        Une proposition vague, trompeuse ou trop sensible ne doit pas être intégrée telle quelle.
+      </p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Ce que le système ne fait pas</h2>
+    <div class="alert-box">
+      <p>
+        Le formulaire ne valide pas automatiquement un service.
+        Il ne garantit ni publication, ni certification, ni reconnaissance officielle.
+      </p>
+    </div>
   </section>
 
 </main>
 
 <footer class="site-footer">
-  <p>
-    © WTD-Madagascar — Projet citoyen, humain et non automatisé
-  </p>
+  <p>© WTD-Madagascar — Contribution responsable et orientation prudente</p>
   <p>
     <small>
-      Aucune donnée personnelle collectée · Orientation uniquement ·
-      <a data-href="doc/statut-transparence.html">Transparence</a>
+      <a data-href="../index.html">Accueil</a> ·
+      <a data-href="statut-transparence.html">Transparence</a>
     </small>
   </p>
 </footer>
