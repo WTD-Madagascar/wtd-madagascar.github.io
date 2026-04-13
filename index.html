@@ -36,7 +36,7 @@
   </div>
 </header>
 
-<main id="contenu">
+<main id="contenu" class="container">
 
   <section class="card hero">
     <h2>Une plateforme utile pour trouver des services, des relais et une orientation fiable</h2>
@@ -112,26 +112,14 @@
       qui unifie la perception interne, l’analyse des messages, la détection des risques
       et la production d’un score global.
     </p>
-    <p>
-      Trois éléments sont pris en compte :
-    </p>
     <ul>
       <li><strong>Intent score</strong> : niveau de confiance sur l’intention détectée</li>
       <li><strong>Risk score</strong> : niveau de sensibilité du message</li>
       <li><strong>Absolute score</strong> : score global de qualité et de sécurité</li>
     </ul>
 
-    <p>La formule utilisée est la suivante :</p>
-
     <pre><code>Safety score = 100 - Risk score
 Absolute score = (Intent score × 0.6) + (Safety score × 0.4)</code></pre>
-
-    <p>En clair :</p>
-    <ul>
-      <li>plus l’intention est claire, plus le score monte ;</li>
-      <li>plus le message est sensible ou risqué, plus le score baisse ;</li>
-      <li>le système privilégie une orientation prudente plutôt qu’une réponse hasardeuse.</li>
-    </ul>
 
     <p>Exemple :</p>
 
@@ -142,29 +130,24 @@ Safety score = 80
 Absolute score = (80 × 0.6) + (80 × 0.4) = 80</code></pre>
 
     <div class="actions">
-      <a class="btn btn-secondary" data-href="doc/bot-dashboard.html">
-        📊 Voir le dashboard du bot
-      </a>
+      <a class="btn btn-secondary" data-href="doc/bot-dashboard.html">📊 Voir le dashboard du bot</a>
     </div>
   </section>
 
   <section class="card">
     <h2>Perception interne de WTD-Madagascar IA-Agent</h2>
-
     <p>
       <strong>WTD-Madagascar IA-Agent</strong> ne comprend pas les messages comme un humain.
       Il applique une lecture structurée basée sur des règles, des signaux de contexte
       et des indicateurs de confiance.
     </p>
 
-    <p>Chaque message est traité en plusieurs étapes internes :</p>
-
     <ol>
-      <li><strong>Normalisation</strong> : nettoyage du texte (minuscules, suppression des accents, espaces)</li>
-      <li><strong>Détection de langue</strong> : identification simple entre français et malgache</li>
-      <li><strong>Classification d’intention</strong> : identification du type de demande</li>
-      <li><strong>Évaluation du risque</strong> : détection des contenus sensibles</li>
-      <li><strong>Choix de réponse</strong> : orientation adaptée selon le contexte</li>
+      <li><strong>Normalisation</strong> : nettoyage du texte</li>
+      <li><strong>Détection de langue</strong> : français ou malgache</li>
+      <li><strong>Classification d’intention</strong> : type de demande</li>
+      <li><strong>Évaluation du risque</strong> : signaux sensibles</li>
+      <li><strong>Choix de réponse</strong> : orientation adaptée</li>
     </ol>
 
     <h3>Types d’intentions détectées</h3>
@@ -174,49 +157,6 @@ Absolute score = (80 × 0.6) + (80 × 0.4) = 80</code></pre>
       <li><strong>SIGNAL</strong> : situation sensible ou urgente</li>
       <li><strong>CURIOUS</strong> : question sur le système ou l’organisation</li>
       <li><strong>NOISE</strong> : message trop court ou non exploitable</li>
-    </ul>
-
-    <h3>Logique de perception</h3>
-    <p>
-      Le système ne “comprend” pas au sens humain. Il détecte des <strong>indices</strong> :
-    </p>
-    <ul>
-      <li>mots-clés présents dans le message,</li>
-      <li>type de formulation (question, demande, urgence),</li>
-      <li>niveau de sensibilité (localisation, données personnelles, danger).</li>
-    </ul>
-
-    <p>Ces éléments produisent deux valeurs internes :</p>
-    <ul>
-      <li><strong>Intent score</strong> : confiance dans l’interprétation du message</li>
-      <li><strong>Risk score</strong> : niveau de sensibilité détecté</li>
-    </ul>
-
-    <h3>Principe de sécurité</h3>
-    <p>
-      Si un message est jugé <strong>sensible</strong>, le système :
-    </p>
-    <ul>
-      <li>réduit son niveau d’interprétation,</li>
-      <li>évite toute réponse précise risquée,</li>
-      <li>propose une orientation neutre ou humaine.</li>
-    </ul>
-
-    <p>Cela permet d’éviter :</p>
-    <ul>
-      <li>les erreurs d’interprétation critiques,</li>
-      <li>les fausses informations sensibles,</li>
-      <li>les réponses dangereuses.</li>
-    </ul>
-
-    <h3>Résumé</h3>
-    <p>
-      WTD-Madagascar IA-Agent fonctionne comme un système de <strong>lecture prudente</strong> :
-    </p>
-    <ul>
-      <li>il privilégie la sécurité à la précision absolue,</li>
-      <li>il oriente plutôt qu’il affirme,</li>
-      <li>il évite de deviner en cas de doute.</li>
     </ul>
   </section>
 
@@ -233,12 +173,8 @@ Absolute score = (80 × 0.6) + (80 × 0.4) = 80</code></pre>
     </p>
 
     <div class="actions">
-      <a class="btn btn-secondary" data-href="doc/statut-transparence.html">
-        📄 Lire le statut & la transparence
-      </a>
-      <a class="btn btn-secondary" data-href="doc/">
-        📁 Accéder aux documents terrain
-      </a>
+      <a class="btn btn-secondary" data-href="doc/statut-transparence.html">📄 Lire le statut & la transparence</a>
+      <a class="btn btn-secondary" data-href="doc/">📁 Accéder aux documents terrain</a>
     </div>
   </section>
 
