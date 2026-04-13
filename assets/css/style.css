@@ -1,18 +1,17 @@
 /* =========================================================
    WTD-MADAGASCAR – CSS GLOBAL RGAA ★★★★★
-   Objectifs: contraste, focus visible, lisibilité, clavier,
-   responsive, préférences utilisateur (réduction animations)
+   Base solide + compléments IA-Agent / dashboard
 ========================================================= */
 
-/* ---------- Variables (couleurs à bon contraste) ---------- */
+/* ---------- Variables ---------- */
 :root{
   --bg: #f6f8fa;
   --surface: #ffffff;
-  --text: #111827;          /* quasi noir */
-  --muted: #374151;         /* gris foncé lisible */
+  --text: #111827;
+  --muted: #374151;
   --border: #d1d5db;
 
-  --brand: #0b4a6f;         /* bleu WTD */
+  --brand: #0b4a6f;
   --brand-ink: #ffffff;
 
   --link: #0b4a6f;
@@ -22,7 +21,7 @@
   --warning: #7a4b00;
   --danger:  #8a1f11;
 
-  --focus: #ffbf47;         /* focus très visible (type GOV.UK) */
+  --focus: #ffbf47;
 
   --radius: 12px;
   --shadow: 0 2px 10px rgba(0,0,0,.10);
@@ -32,7 +31,6 @@
   --maxw: 1000px;
 }
 
-/* Respect des préférences utilisateur */
 @media (prefers-reduced-motion: reduce){
   *{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
@@ -48,23 +46,21 @@ body{
   color: var(--text);
 }
 
-/* Liens : visibles + soulignés (RGAA) */
 a{
   color: var(--link);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 a:hover{ color: var(--link-hover); }
-a:visited{ color: #3b2f7a; } /* contraste OK, différenciation */
+a:visited{ color: #3b2f7a; }
 
-/* ---------- Focus clavier (RGAA) ---------- */
 :focus{ outline: none; }
 :focus-visible{
   outline: 3px solid var(--focus);
   outline-offset: 3px;
 }
 
-/* ---------- Skip link (navigation clavier) ---------- */
+/* ---------- Skip link ---------- */
 .skip-link{
   position: absolute;
   left: -9999px;
@@ -101,10 +97,17 @@ header.site-header{
   color: var(--brand-ink);
   padding: 16px;
 }
-header.site-header .container{ padding: 0; max-width: var(--maxw); }
+header.site-header .container{
+  padding: 0;
+  max-width: var(--maxw);
+}
 header.site-header h1{
   margin: 0 0 6px 0;
   font-size: 1.5rem;
+}
+header.site-header h1 a{
+  color: #fff;
+  text-decoration: none;
 }
 header.site-header p{
   margin: 0 0 10px 0;
@@ -118,10 +121,11 @@ nav.site-nav{
 }
 nav.site-nav a{
   color: #ffffff;
-  text-decoration: underline; /* accessible, pas “lien invisible” */
+  text-decoration: underline;
   font-weight: 700;
 }
-nav.site-nav a[aria-current="page"]{
+nav.site-nav a[aria-current="page"],
+nav.site-nav a.active{
   text-decoration-thickness: 3px;
   text-underline-offset: 4px;
 }
@@ -129,8 +133,8 @@ nav.site-nav a[aria-current="page"]{
 /* ---------- Titres / texte ---------- */
 h1,h2,h3{ line-height: 1.25; }
 h2{ color: var(--brand); margin-top: 0; }
-p{ max-width: 75ch; } /* confort lecture */
-.small, small{ color: var(--muted); }
+p{ max-width: 75ch; }
+.small, small, .metric-note{ color: var(--muted); }
 
 /* ---------- Cartes / sections ---------- */
 .card, section.card{
@@ -142,11 +146,20 @@ p{ max-width: 75ch; } /* confort lecture */
   border: 1px solid rgba(0,0,0,.06);
 }
 
+.hero{
+  border: 2px solid rgba(11, 74, 111, 0.12);
+  background: linear-gradient(180deg, #ffffff 0%, #f7fbfd 100%);
+}
+
 /* ---------- Listes ---------- */
 ul,ol{ padding-left: 1.2rem; }
 li{ margin: 6px 0; }
 
-/* ---------- Boutons (liens-boutons inclus) ---------- */
+.section-list li{
+  margin-bottom: 0.45rem;
+}
+
+/* ---------- Boutons ---------- */
 .btn{
   display: inline-flex;
   align-items: center;
@@ -156,7 +169,7 @@ li{ margin: 6px 0; }
   padding: 10px 14px;
   border-radius: 10px;
   border: 2px solid transparent;
-  text-decoration: none;    /* bouton visuel */
+  text-decoration: none;
   font-weight: 800;
   cursor: pointer;
 }
@@ -168,7 +181,6 @@ li{ margin: 6px 0; }
   outline-offset: 3px;
 }
 
-/* Bouton secondaire */
 .btn-secondary{
   background: #ffffff;
   color: var(--brand);
@@ -176,6 +188,13 @@ li{ margin: 6px 0; }
 }
 .btn-secondary:hover{
   background: #e6f0f6;
+}
+
+.actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
 }
 
 /* ---------- Formulaires ---------- */
@@ -214,7 +233,129 @@ input:focus-visible, select:focus-visible, textarea:focus-visible{
   border-radius: 10px;
 }
 
-/* ---------- Table (si besoin) ---------- */
+/* ---------- Blocs logiques / calcul ---------- */
+.notice-mg{
+  background: #fff7e6;
+  border-left: 4px solid #f0d28a;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.formula-box,
+.logic-box,
+.alert-box{
+  padding: 12px;
+  border-radius: 10px;
+  margin: 12px 0;
+}
+
+.formula-box,
+.logic-box{
+  background: #eef8ff;
+  border-left: 4px solid var(--brand);
+}
+
+.alert-box{
+  background: #fff1ef;
+  border-left: 4px solid var(--danger);
+}
+
+/* ---------- Code / pre ---------- */
+pre,
+.code-block{
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 12px;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ---------- Dashboard ---------- */
+.dashboard-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 14px 0 20px;
+}
+
+.metric-card{
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+
+.metric-card h3{
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.metric-value{
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.kpi-bar{
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.kpi-fill{
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--brand), #0b6b3a);
+}
+
+/* ---------- Badges / tags ---------- */
+.badge,
+.tag{
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.badge-ok,
+.tag-safe{
+  border-color: #b7e0c6;
+  background: #ecfff3;
+  color: var(--success);
+}
+
+.badge-warn{
+  border-color: #f0d28a;
+  background: #fff7e6;
+  color: var(--warning);
+}
+
+.badge-info{
+  border-color: #b8d7ea;
+  background: #eef8ff;
+  color: var(--brand);
+}
+
+.tag-sensitive{
+  border-color: #efb3ab;
+  background: #fff1ef;
+  color: var(--danger);
+}
+
+/* ---------- Table ---------- */
+.table-wrap{
+  overflow-x: auto;
+}
+
 table{
   width: 100%;
   border-collapse: collapse;
@@ -245,21 +386,11 @@ footer.site-footer{
   border-top: 1px solid var(--border);
   margin: 16px 0;
 }
-.badge{
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-weight: 800;
-  border: 1px solid var(--border);
-  background: #fff;
-}
-.badge-ok{ border-color: #b7e0c6; background: #ecfff3; color: var(--success); }
-.badge-warn{ border-color: #f0d28a; background: #fff7e6; color: var(--warning); }
-.badge-info{ border-color: #b8d7ea; background: #eef8ff; color: var(--brand); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 640px){
   header.site-header h1{ font-size: 1.35rem; }
   .btn{ width: 100%; justify-content: center; }
   nav.site-nav{ gap: 8px 10px; }
+  .actions{ flex-direction: column; }
 }
