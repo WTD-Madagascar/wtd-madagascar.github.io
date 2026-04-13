@@ -2,122 +2,147 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Services – WTD-Madagascar</title>
+  <title>WTD-Madagascar – Services</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Services WTD-Madagascar : transports accessibles, accompagnement humain, relais terrain et orientation citoyenne." />
+  <meta
+    name="description"
+    content="Services accessibles, relais locaux et ressources utiles référencés par WTD-Madagascar."
+  />
 
-  <!-- CSS chargé dynamiquement -->
   <link rel="stylesheet" data-main-css />
 
-  <!-- Base path & logique globale -->
   <script src="../assets/js/basepath.js"></script>
   <script src="../assets/js/main.js" defer></script>
 </head>
 
 <body>
 
-<!-- Accès rapide clavier -->
 <a class="skip-link" href="#contenu">Aller au contenu</a>
 
 <header class="site-header">
   <div class="container">
-    <h1>WTD-Madagascar</h1>
-    <p>Information · Orientation · Terrain</p>
+    <h1><a data-href="../index.html">WTD-Madagascar</a></h1>
+    <p>Services accessibles · Relais locaux · Orientation humaine</p>
 
     <nav class="site-nav" aria-label="Navigation principale">
-      <a data-href="index.html">Accueil</a>
-      <a data-href="doc/services.html" aria-current="page">Services</a>
-      <a data-href="doc/transport-accessible.html">Transport</a>
-      <a data-href="doc/map-services.html">Carte</a>
-      <a data-href="doc/bot-dashboard.html">Bot</a>
-      <a data-href="doc/inscription.html">Proposer un service</a>
-      <a data-href="doc/statut-transparence.html">Statut & transparence</a>
-      <a data-href="doc/institutions-partenaires.html">Institutions</a>
+      <a data-href="../index.html">Accueil</a>
+      <a data-href="services.html" aria-current="page">Services</a>
+      <a data-href="transport-accessible.html">Transport</a>
+      <a data-href="map-services.html">Carte</a>
+      <a data-href="bot-dashboard.html">IA-Agent</a>
+      <a data-href="inscription.html">Proposer un service</a>
+      <a data-href="statut-transparence.html">Statut & transparence</a>
     </nav>
   </div>
 </header>
 
 <main id="contenu">
 
-  <!-- ====== PRÉSENTATION ====== -->
-  <section class="card">
-    <h2>Services WTD-Madagascar</h2>
+  <section class="card hero">
+    <h2>Services accessibles et ressources utiles</h2>
     <p>
-      Cette page présente les <strong>services utiles et accessibles</strong>
-      recensés ou accompagnés dans le cadre du programme <strong>WTD-Madagascar</strong>.
+      Cette page rassemble des catégories de services que
+      <strong>WTD-Madagascar</strong> peut aider à repérer, décrire et orienter.
+      L’objectif n’est pas de promettre une prise en charge automatique,
+      mais de faciliter l’accès à une information utile sur le terrain.
     </p>
+    <p lang="mg" class="notice-mg">
+      Ny tanjona dia ny hanamora ny fahitana tolotra sy fanampiana ilaina eny an-toerana.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Catégories de services</h2>
+    <ul>
+      <li><strong>Accueil et orientation</strong> : points d’accueil, relais communautaires, information locale</li>
+      <li><strong>Santé et accompagnement</strong> : structures de soin, accompagnement social, soutien de proximité</li>
+      <li><strong>Éducation et inclusion</strong> : établissements, appuis à la scolarité, solutions d’accessibilité</li>
+      <li><strong>Démarches administratives</strong> : fokontany, commune, guichets, interlocuteurs locaux</li>
+      <li><strong>Soutien terrain</strong> : associations, réseaux d’entraide, relais citoyens</li>
+      <li><strong>Services de mobilité</strong> : transport adapté, solutions d’accès, accompagnement déplacement</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Ce que l’utilisateur peut chercher</h2>
+    <ul>
+      <li>un service proche ou connu dans une zone donnée,</li>
+      <li>un relais local pouvant orienter ou expliquer une démarche,</li>
+      <li>une structure utile pour un besoin particulier,</li>
+      <li>une information simple sur l’accès à un service ou à un point de contact.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Comment WTD-Madagascar IA-Agent aide</h2>
     <p>
-      WTD-Madagascar est un outil <strong>d’orientation citoyenne</strong>.
-      Il ne remplace pas les acteurs existants, mais facilite l’accès
-      à l’information et la mise en relation humaine.
+      Le module <strong>WTD-Madagascar IA-Agent</strong> aide à classer une demande,
+      détecter son intention et orienter l’utilisateur vers la catégorie de service
+      la plus cohérente.
     </p>
-    <p class="small">
-      Tsy misolo olona na andrim-panjakana ny WTD.
-      Izy dia manampy amin’ny fitarihana sy ny fampifandraisana eny an-toerana.
-    </p>
+    <div class="logic-box">
+      <p>
+        Le système privilégie une logique prudente :
+        il oriente vers une piste utile, sans se substituer à une validation humaine.
+      </p>
+    </div>
   </section>
 
-  <!-- ====== TYPES DE SERVICES ====== -->
   <section class="card">
-    <h2>Types de services concernés</h2>
-    <ul>
-      <li>🚕 Transports accessibles ou adaptés</li>
-      <li>🤝 Accompagnement humain (déplacements, démarches)</li>
-      <li>🏠 Relais associatifs, communautaires et fokontany</li>
-      <li>🧭 Orientation vers des services sociaux existants</li>
-      <li>🗺️ Points utiles identifiés sur la carte terrain</li>
-    </ul>
+    <h2>Exemples de demandes</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Demande</th>
+            <th>Catégorie probable</th>
+            <th>Type d’orientation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Où trouver un relais local ?</td>
+            <td>Accueil et orientation</td>
+            <td>Point relais, acteur communautaire</td>
+          </tr>
+          <tr>
+            <td>Quel service peut m’aider pour un déplacement difficile ?</td>
+            <td>Mobilité</td>
+            <td>Transport ou appui déplacement</td>
+          </tr>
+          <tr>
+            <td>Où aller pour une démarche au fokontany ?</td>
+            <td>Démarches administratives</td>
+            <td>Orientation vers bureau ou contact local</td>
+          </tr>
+          <tr>
+            <td>Je cherche une structure d’accompagnement</td>
+            <td>Santé et accompagnement</td>
+            <td>Service d’aide ou structure de soutien</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
-  <!-- ====== FONCTIONNEMENT ====== -->
   <section class="card">
-    <h2>Comment fonctionne WTD-Madagascar</h2>
-    <ul>
-      <li>Recensement progressif depuis le terrain</li>
-      <li>Validation humaine (aucune automatisation décisionnelle)</li>
-      <li>Mise à jour continue selon les retours locaux</li>
-      <li>Accès simple, sans jargon technique</li>
-      <li>Utilisable sur téléphone et connexion limitée</li>
-    </ul>
-  </section>
-
-  <!-- ====== CADRE ÉTHIQUE ====== -->
-  <section class="card">
-    <h2>Cadre éthique & limites</h2>
-    <ul>
-      <li>❌ Aucune collecte de données personnelles</li>
-      <li>❌ Aucune surveillance</li>
-      <li>❌ Aucune décision automatisée</li>
-      <li>✔ Validation humaine prioritaire</li>
-      <li>✔ Transparence publique</li>
-    </ul>
-    <p class="small">
-      Olombelona no eo afovoany. Ny fitaovana dia manampy fotsiny.
-    </p>
-  </section>
-
-  <!-- ====== ACCÈS RAPIDES ====== -->
-  <section class="card">
-    <h2>Accès rapides</h2>
-    <ul>
-      <li><a data-href="doc/map-services.html">🗺️ Carte des services</a></li>
-      <li><a data-href="doc/transport-accessible.html">🚐 Transports accessibles</a></li>
-      <li><a data-href="doc/bot-dashboard.html">🤖 Bot d’information WTD</a></li>
-      <li><a data-href="doc/inscription.html">➕ Proposer un service / devenir relais</a></li>
-      <li><a data-href="doc/terrain/">📄 Documents terrain (PDF)</a></li>
-    </ul>
+    <h2>Limites</h2>
+    <div class="alert-box">
+      <p>
+        Les informations présentées ici doivent être confirmées localement.
+        WTD-Madagascar n’accorde pas de validation administrative, médicale ou officielle.
+      </p>
+    </div>
   </section>
 
 </main>
 
 <footer class="site-footer">
-  <p>
-    © WTD-Madagascar — Projet citoyen, humain et non automatisé
-  </p>
+  <p>© WTD-Madagascar — Services, relais et orientation prudente</p>
   <p>
     <small>
-      Aucune donnée personnelle collectée · Orientation uniquement ·
-      <a data-href="doc/statut-transparence.html">Transparence</a>
+      <a data-href="../index.html">Accueil</a> ·
+      <a data-href="statut-transparence.html">Transparence</a>
     </small>
   </p>
 </footer>
