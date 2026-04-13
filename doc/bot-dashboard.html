@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Dashboard de WTD-Madagascar IA-Agent : scores, perception interne, historique, alertes et logique de calcul du bot."
+    content="Dashboard de WTD-Madagascar IA-Agent : perception interne, calcul du bot, scores, alertes et orientation prudente."
   />
 
   <link rel="stylesheet" data-main-css />
@@ -36,14 +36,18 @@
   </div>
 </header>
 
-<main id="contenu" class="container">
+<main id="contenu">
 
   <section class="card">
     <h2>Vue d’ensemble</h2>
     <p>
-      <strong>WTD-Madagascar IA-Agent</strong> est le composant unifié chargé de
-      la perception des messages, de la détection d’intention, de l’évaluation du risque
-      et du calcul du score global du bot.
+      <strong>WTD-Madagascar IA-Agent</strong> est le composant unifié chargé
+      d’analyser les messages, de détecter une intention, d’évaluer un risque
+      et de produire une réponse prudente avec un score global lisible.
+    </p>
+    <p class="small">
+      Le système ne remplace pas une validation humaine. Il oriente, il n’affirme
+      pas au-delà de son niveau de confiance.
     </p>
   </section>
 
@@ -69,7 +73,7 @@
         <h3>Safety score</h3>
         <div class="metric-value">80</div>
         <div class="kpi-bar"><div class="kpi-fill" style="width: 80%;"></div></div>
-        <p class="metric-note">Niveau de sécurité après évaluation du risque</p>
+        <p class="metric-note">Niveau de sécurité après analyse du risque</p>
       </article>
 
       <article class="metric-card">
@@ -84,28 +88,33 @@
       <h3>Formule de calcul</h3>
       <pre><code>Safety score = 100 - Risk score
 Absolute score = (Intent score × 0.6) + (Safety score × 0.4)</code></pre>
+      <p class="small">
+        Plus l’intention est claire, plus le score monte. Plus le risque est élevé,
+        plus le score global baisse.
+      </p>
     </div>
   </section>
 
   <section class="card">
     <h2>Perception interne</h2>
+
     <div class="logic-box">
       <p>
-        Le système ne comprend pas un message comme un humain.
-        Il applique une lecture structurée reposant sur des règles,
-        des indices de contexte et un principe de prudence.
+        WTD-Madagascar IA-Agent ne comprend pas un message comme un humain.
+        Il applique une lecture structurée fondée sur des mots-clés, des signaux
+        de contexte et un principe de prudence.
       </p>
     </div>
 
     <ol class="section-list">
-      <li><strong>Normalisation</strong> : nettoyage du texte</li>
+      <li><strong>Normalisation</strong> : nettoyage du texte, suppression des accents, homogénéisation</li>
       <li><strong>Détection de langue</strong> : repérage simple du français ou du malgache</li>
       <li><strong>Classification d’intention</strong> : GENERAL, ORIENTATION, SIGNAL, CURIOUS ou NOISE</li>
       <li><strong>Évaluation du risque</strong> : détection de signaux sensibles</li>
-      <li><strong>Choix de réponse</strong> : production d’une réponse prudente et limitée</li>
+      <li><strong>Choix de réponse</strong> : orientation prudente, neutre ou assistée</li>
     </ol>
 
-    <h3>Intents détectés</h3>
+    <h3>Types d’intentions détectées</h3>
     <p>
       <span class="tag tag-safe">GENERAL</span>
       <span class="tag tag-safe">ORIENTATION</span>
@@ -117,29 +126,35 @@ Absolute score = (Intent score × 0.6) + (Safety score × 0.4)</code></pre>
 
   <section class="card">
     <h2>Exemple de calcul</h2>
-    <pre><code>"Où est le bureau du fokontany ?"</code></pre>
+
+    <p>Message simulé :</p>
+    <pre><code>Où est le bureau du fokontany ?</code></pre>
 
     <div class="dashboard-grid">
       <article class="metric-card">
         <h3>Langue détectée</h3>
         <div class="metric-value">FR</div>
+        <p class="metric-note">Détection simple par indices linguistiques</p>
       </article>
 
       <article class="metric-card">
         <h3>Intent détecté</h3>
         <div class="metric-value">ORIENTATION</div>
+        <p class="metric-note">Demande de lieu, service ou contact</p>
       </article>
 
       <article class="metric-card">
         <h3>Risque</h3>
         <div class="metric-value">SAFE</div>
+        <p class="metric-note">Aucun signal sensible fort détecté</p>
       </article>
 
       <article class="metric-card">
-        <h3>Réponse</h3>
-        <div class="metric-value" style="font-size:1rem;font-weight:600;">
+        <h3>Réponse produite</h3>
+        <div class="metric-value" style="font-size:1rem; font-weight:700;">
           Orientation vers le fokontany ou le relais compétent
         </div>
+        <p class="metric-note">Réponse courte, prudente et utile</p>
       </article>
     </div>
   </section>
@@ -195,18 +210,47 @@ Absolute score = (Intent score × 0.6) + (Safety score × 0.4)</code></pre>
         </tbody>
       </table>
     </div>
+
+    <p class="small">
+      Cette table peut ensuite être reliée à un journal réel du bot
+      (`bot_logs.json` ou API dédiée).
+    </p>
   </section>
 
   <section class="card">
     <h2>Alertes sensibles</h2>
+
     <div class="alert-box">
-      <p>Si un message est jugé <strong>sensible</strong>, WTD-Madagascar IA-Agent :</p>
+      <p>
+        Si un message est jugé <strong>sensible</strong>, WTD-Madagascar IA-Agent :
+      </p>
       <ul class="section-list">
         <li>réduit son niveau d’interprétation,</li>
         <li>évite les réponses précises risquées,</li>
         <li>propose une orientation neutre, prudente ou humaine.</li>
       </ul>
     </div>
+
+    <p>Objectif :</p>
+    <ul class="section-list">
+      <li>éviter les erreurs critiques,</li>
+      <li>éviter les réponses dangereuses,</li>
+      <li>garder une logique d’assistance sans surpromesse.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Résumé stratégique</h2>
+    <p>
+      WTD-Madagascar IA-Agent fonctionne comme un système de
+      <strong>lecture prudente et orientée terrain</strong>.
+    </p>
+    <ul class="section-list">
+      <li>Il privilégie la sécurité à la précision absolue.</li>
+      <li>Il oriente plutôt qu’il n’affirme.</li>
+      <li>Il évite de deviner en cas de doute.</li>
+      <li>Il rend le comportement du bot lisible, mesurable et explicable.</li>
+    </ul>
   </section>
 
 </main>
