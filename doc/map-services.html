@@ -1,119 +1,137 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>WTD Madagascar – Carte des services</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>WTD-Madagascar – Statut & transparence</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Statut, transparence, cadre éthique et fonctionnement de WTD-Madagascar et de son IA-Agent."
+  />
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" data-main-css />
 
-<style>
-html,body{margin:0;height:100%;font-family:system-ui,sans-serif}
-#header{background:#0b4a6f;color:#fff;padding:10px;font-weight:700}
-#map{height:calc(100% - 50px)}
-.bot-icon{text-align:center}
-footer{font-size:11px;text-align:center;padding:4px}
-</style>
+  <script src="../assets/js/basepath.js"></script>
+  <script src="../assets/js/main.js" defer></script>
 </head>
 
 <body>
 
-<div id="header">
-Un problème ? Signale-le. Tu aides les autres.
-</div>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
 
-<div id="map"></div>
+<header class="site-header">
+  <div class="container">
+    <h1><a data-href="../index.html">WTD-Madagascar</a></h1>
+    <p>Transparence · Cadre éthique · Fonctionnement lisible</p>
 
-<footer>
-Aucune donnée personnelle • Signalement anonyme • Usage collectif
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a data-href="../index.html">Accueil</a>
+      <a data-href="services.html">Services</a>
+      <a data-href="transport-accessible.html">Transport</a>
+      <a data-href="map-services.html">Carte</a>
+      <a data-href="bot-dashboard.html">IA-Agent</a>
+      <a data-href="inscription.html">Proposer un service</a>
+      <a data-href="statut-transparence.html" aria-current="page">Statut & transparence</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenu">
+
+  <section class="card hero">
+    <h2>Statut et transparence</h2>
+    <p>
+      <strong>WTD-Madagascar</strong> est présenté comme un projet d’information,
+      d’orientation et d’accessibilité terrain. Son rôle est d’aider à mieux repérer
+      des services, des relais et des ressources utiles.
+    </p>
+    <p>
+      Le site ne se présente pas comme une autorité administrative, policière, médicale
+      ou judiciaire.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Principe général</h2>
+    <ul>
+      <li>pas de surveillance,</li>
+      <li>pas de décision automatique finale,</li>
+      <li>pas de collecte volontaire de données personnelles sensibles dans la logique publique du site,</li>
+      <li>pas de substitution à une validation humaine ou institutionnelle.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Ce que fait WTD-Madagascar IA-Agent</h2>
+    <p>
+      Le module <strong>WTD-Madagascar IA-Agent</strong> classe les demandes,
+      évalue un niveau de risque, détecte une intention probable et propose
+      une orientation prudente.
+    </p>
+    <div class="formula-box">
+      <p>
+        Il ne “décide” pas à la place d’une personne. Il produit un appui,
+        une lecture et un score interne pour aider à mieux orienter.
+      </p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Ce que le système ne fait pas</h2>
+    <ul>
+      <li>il ne rend pas de décision officielle,</li>
+      <li>il ne valide pas une identité,</li>
+      <li>il ne confirme pas une prise en charge réelle,</li>
+      <li>il ne garantit pas la disponibilité d’un service,</li>
+      <li>il ne remplace pas une autorité compétente.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Principe de prudence</h2>
+    <div class="logic-box">
+      <p>
+        Si une demande paraît sensible, le système réduit son niveau d’interprétation,
+        évite les réponses risquées et privilégie une orientation neutre, sobre
+        et plus sûre.
+      </p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Lisibilité du fonctionnement</h2>
+    <p>
+      Le comportement du bot est expliqué publiquement à travers :
+    </p>
+    <ul>
+      <li>la description de la perception interne,</li>
+      <li>la logique de score,</li>
+      <li>les limites explicites du système,</li>
+      <li>le rappel qu’une validation humaine reste nécessaire.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Engagement éthique</h2>
+    <div class="alert-box">
+      <p>
+        WTD-Madagascar adopte une logique d’assistance responsable :
+        aider sans tromper, orienter sans surpromettre, expliquer sans masquer les limites.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>© WTD-Madagascar — Transparence, prudence et validation humaine</p>
+  <p>
+    <small>
+      <a data-href="../index.html">Accueil</a> ·
+      <a data-href="bot-dashboard.html">IA-Agent</a>
+    </small>
+  </p>
 </footer>
-
-<script>
-/* =============================
-   CARTE
-============================= */
-const map = L.map("map").setView([-18.879,47.5079],6);
-
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
-  attribution:"© OpenStreetMap"
-}).addTo(map);
-
-const botLayer = L.layerGroup().addTo(map);
-
-/* =============================
-   ICÔNES
-============================= */
-function getIcon(type){
-  const icons={
-    accident_urgence:"🚨",
-    transport_bloque:"🚌",
-    route_probleme:"🚧",
-    besoin_aide:"🧭",
-    service_accessible:"♿"
-  };
-  return L.divIcon({
-    className:"bot-icon",
-    html:`<div style="font-size:22px">${icons[type]||"⚠️"}</div>`,
-    iconSize:[24,24],
-    iconAnchor:[12,12]
-  });
-}
-
-/* =============================
-   EXPIRATION
-============================= */
-function expired(s){
-  return s.expires_at && new Date(s.expires_at) < new Date();
-}
-
-/* =============================
-   CHARGEMENT GOOGLE SHEET
-============================= */
-async function loadBot(){
-  try{
-    const r = await fetch(
-      "https://opensheet.elk.sh/1953pIQSeQoe_1Iu_L-VRtKSN5GQRHMBy5HqnSaTB7io/WTD_MAP_SIGNALS",
-      { cache:"no-store" }
-    );
-    const data = await r.json();
-
-    botLayer.clearLayers();
-
-    data
-      .filter(s => s.lat && s.lng && !expired(s))
-      .sort((a,b)=>(Number(b.priority)||0)-(Number(a.priority)||0))
-      .forEach(s=>{
-        const marker = L.marker(
-          [Number(s.lat), Number(s.lng)],
-          { icon:getIcon(s.type) }
-        );
-
-        marker.bindPopup(`
-          <strong>${(s.type||"").replace("_"," ")}</strong><br>
-          ${s.label||""}<br>
-          ${s.message||""}<br>
-          <small>${new Date(s.created_at).toLocaleString()}</small>
-        `);
-
-        botLayer.addLayer(marker);
-      });
-
-  }catch(e){
-    console.warn("Erreur chargement données :", e);
-  }
-}
-
-loadBot();
-setInterval(loadBot,30000);
-
-/* =============================
-   OFFLINE (optionnel)
-============================= */
-if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("sw.js");
-}
-</script>
 
 </body>
 </html>
