@@ -1,45 +1,60 @@
 (function () {
-  // Sécurité : base path doit exister
-  if (typeof window.BASE_PATH === 'undefined') {
-    console.warn('BASE_PATH non défini. basepath.js est-il chargé ?');
-    window.BASE_PATH = '';
+  "use strict";
+
+  const base = typeof window.BASE_PATH === "string" ? window.BASE_PATH : "";
+
+  if (typeof window.BASE_PATH === "undefined") {
+    console.warn("BASE_PATH non défini. basepath.js est-il chargé ?");
+    window.BASE_PATH = "";
   }
 
-  /* =========================
-     CSS dynamique (optionnel)
-  ========================== */
-  const css = document.querySelector('link[data-main-css]');
+  const css = document.querySelector("link[data-main-css]");
   if (css) {
-    css.href = BASE_PATH + 'assets/css/style.css';
+    css.href = base + "assets/css/main.css";
   }
 
-  /* =========================
-     Navigation : liens
-  ========================== */
-  document.querySelectorAll('a[data-href]').forEach(link => {
-    link.setAttribute('href', BASE_PATH + link.dataset.href);
+  function resolveHref(target) {
+    if (!target) return "#";
+
+    if (
+      target.startsWith("http://") ||
+      target.startsWith("https://") ||
+      target.startsWith("mailto:") ||
+      target.startsWith("tel:") ||
+      target.startsWith("#")
+    ) {
+      return target;
+    }
+
+    return base + target.replace(/^\/+/, "");
+  }
+
+  document.querySelectorAll("a[data-href]").forEach((link) => {
+    link.setAttribute("href", resolveHref(link.dataset.href));
   });
 
-  /* =========================
-     Navigation : page active
-  ========================== */
-  const current = location.pathname.split('/').pop() || 'index.html';
+  const current = location.pathname.split("/").pop() || "index.html";
 
-  document.querySelectorAll('a[data-href]').forEach(link => {
-    const target = link.dataset.href.split('/').pop();
+  document.querySelectorAll(".site-nav a[data-href], .site-nav a[href]").forEach((link) => {
+    const raw = link.dataset.href || link.getAttribute("href") || "";
+    const target = raw.split("/").pop();
+
     if (target === current) {
-      link.classList.add('active');
-      link.setAttribute('aria-current', 'page');
+      link.classList.add("active");
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.classList.remove("active");
+      link.removeAttribute("aria-current");
     }
   });
 
-  /* =========================
-     Accessibilité : focus visible
-  ========================== */
-  document.addEventListener('keyup', e => {
-    if (e.key === 'Tab') {
-      document.body.classList.add('user-is-tabbing');
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Tab") {
+      document.body.classList.add("user-is-tabbing");
     }
   });
 
+  document.addEventListener("mousedown", () => {
+    document.body.classList.remove("user-is-tabbing");
+  });
 })();
