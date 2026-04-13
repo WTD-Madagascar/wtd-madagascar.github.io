@@ -2,14 +2,15 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Transport accessible – WTD-Madagascar</title>
+  <title>WTD-Madagascar – Transport accessible</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Transports accessibles à Madagascar : taxis, véhicules adaptés, accompagnement humain et solutions terrain via WTD-Madagascar." />
+  <meta
+    name="description"
+    content="Transport accessible, mobilité assistée et orientation prudente sur le terrain avec WTD-Madagascar."
+  />
 
-  <!-- CSS chargé dynamiquement -->
   <link rel="stylesheet" data-main-css />
 
-  <!-- Base path & logique globale -->
   <script src="../assets/js/basepath.js"></script>
   <script src="../assets/js/main.js" defer></script>
 </head>
@@ -20,140 +21,125 @@
 
 <header class="site-header">
   <div class="container">
-    <h1>WTD-Madagascar</h1>
-    <p>Transport accessible & inclusion</p>
+    <h1><a data-href="../index.html">WTD-Madagascar</a></h1>
+    <p>Mobilité · Accessibilité · Orientation terrain</p>
 
     <nav class="site-nav" aria-label="Navigation principale">
-      <a data-href="index.html">Accueil</a>
-      <a data-href="doc/services.html">Services</a>
-      <a data-href="doc/transport-accessible.html" aria-current="page">Transport</a>
-      <a data-href="doc/map-services.html">Carte</a>
-      <a data-href="doc/bot-dashboard.html">Bot</a>
-      <a data-href="doc/inscription.html">Proposer un service</a>
-      <a data-href="doc/statut-transparence.html">Statut & transparence</a>
-      <a data-href="doc/institutions-partenaires.html">Institutions</a>
+      <a data-href="../index.html">Accueil</a>
+      <a data-href="services.html">Services</a>
+      <a data-href="transport-accessible.html" aria-current="page">Transport</a>
+      <a data-href="map-services.html">Carte</a>
+      <a data-href="bot-dashboard.html">IA-Agent</a>
+      <a data-href="inscription.html">Proposer un service</a>
+      <a data-href="statut-transparence.html">Statut & transparence</a>
     </nav>
   </div>
 </header>
 
 <main id="contenu">
 
-  <!-- INTRO -->
-  <section class="card">
-    <span class="badge badge-info">Terrain</span>
-    <h2>Transport accessible</h2>
+  <section class="card hero">
+    <h2>Transport accessible et solutions de mobilité</h2>
     <p>
-      Cette page recense et structure les <strong>solutions de transport accessibles</strong>
-      afin de faciliter les déplacements des personnes en situation de handicap,
-      des personnes âgées et des publics fragiles à Madagascar.
+      Cette page vise à faciliter l’identification de solutions de déplacement
+      plus accessibles, plus compréhensibles et mieux adaptées aux contraintes du terrain.
     </p>
-    <p class="small">
-      Tsy fitaterana manara-maso ity. Tsy misy angon-drakitra manokana voatahiry.
-    </p>
-  </section>
-
-  <!-- COMPTEUR -->
-  <section class="card" aria-live="polite">
-    <h2>Disponibilités estimées</h2>
     <p>
-      <strong id="places-count">—</strong>
-      places libres recensées sur des transports accessibles
-    </p>
-    <p class="small">
-      Données indicatives issues du terrain, mises à jour manuellement.
+      <strong>WTD-Madagascar</strong> ne garantit pas l’existence immédiate d’un transport
+      dans chaque zone. Le rôle du site est d’aider à repérer, orienter et clarifier.
     </p>
   </section>
 
-  <!-- OBJECTIFS -->
   <section class="card">
-    <h2>Objectifs</h2>
+    <h2>Situations concernées</h2>
     <ul>
-      <li>Identifier les solutions existantes (taxis, VTC, minibus, relais)</li>
-      <li>Documenter l’accessibilité réelle (montée, assise, aide humaine)</li>
-      <li>Faciliter la mise en relation locale</li>
+      <li>difficulté à se déplacer seul,</li>
+      <li>besoin d’un accompagnement ou d’un relais,</li>
+      <li>recherche d’un itinéraire ou d’un point d’accès plus simple,</li>
+      <li>déplacement vers un service administratif, social ou de santé,</li>
+      <li>mobilité compliquée par le handicap, l’âge ou le contexte local.</li>
     </ul>
   </section>
 
-  <!-- TYPES -->
   <section class="card">
-    <h2>Types de solutions</h2>
+    <h2>Ce que peut faire WTD-Madagascar IA-Agent</h2>
     <ul>
-      <li>Taxis partenaires</li>
-      <li>Véhicules adaptés ou semi-adaptés</li>
-      <li>Transport communautaire</li>
-      <li>Accompagnement humain</li>
+      <li>identifier qu’une demande concerne la mobilité,</li>
+      <li>orienter vers une information transport ou un relais local,</li>
+      <li>éviter une réponse trop précise si la situation est sensible ou incertaine,</li>
+      <li>privilégier une aide prudente et réaliste.</li>
     </ul>
   </section>
 
-  <!-- FONCTIONNEMENT -->
   <section class="card">
-    <h2>Fonctionnement WTD</h2>
-    <ul>
-      <li>Recensement depuis le terrain</li>
-      <li>Validation humaine</li>
-      <li>Mise à jour progressive</li>
-      <li>Accès hors-ligne (déploiement progressif)</li>
-    </ul>
-  </section>
-
-  <!-- ACCÈS RAPIDES -->
-  <section class="card">
-    <h2>Accès rapides</h2>
-    <div class="actions">
-      <a class="btn" data-href="doc/map-services.html">🗺️ Voir sur la carte</a>
-      <a class="btn btn-secondary" data-href="doc/inscription.html">➕ Proposer un service</a>
-      <a class="btn btn-secondary" data-href="doc/terrain/">📄 Documents terrain</a>
+    <h2>Types d’orientation possibles</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Besoin</th>
+            <th>Orientation probable</th>
+            <th>Observation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Se rendre à un service public</td>
+            <td>Relais local, commune, fokontany, repérage d’accès</td>
+            <td>Confirmation locale recommandée</td>
+          </tr>
+          <tr>
+            <td>Trouver un transport plus adapté</td>
+            <td>Solution de mobilité connue ou point de contact</td>
+            <td>Disponibilité variable selon la zone</td>
+          </tr>
+          <tr>
+            <td>Demande de trajet délicat</td>
+            <td>Orientation prudente, sans promesse de prise en charge</td>
+            <td>Éviter les fausses assurances</td>
+          </tr>
+          <tr>
+            <td>Besoin d’un accompagnement</td>
+            <td>Relais de proximité ou acteur communautaire</td>
+            <td>Logique humaine avant logique automatique</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
-  <!-- À VENIR -->
   <section class="card">
-    <h2>Évolutions prévues</h2>
-    <ul>
-      <li>Filtres par ville et quartier</li>
-      <li>Indication progressive du niveau d’accessibilité</li>
-      <li>Contact local sécurisé et contextualisé</li>
-    </ul>
+    <h2>Principe d’accessibilité</h2>
+    <div class="logic-box">
+      <p>
+        L’accessibilité n’est pas seulement une question de véhicule.
+        Elle dépend aussi de l’information, de l’accompagnement, du cheminement,
+        du point d’arrivée et de la possibilité réelle d’accès.
+      </p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Prudence et limites</h2>
+    <div class="alert-box">
+      <p>
+        Le site ne confirme ni disponibilité en temps réel, ni réservation, ni sécurité
+        opérationnelle d’un trajet. Toute orientation doit être vérifiée localement.
+      </p>
+    </div>
   </section>
 
 </main>
 
 <footer class="site-footer">
-  <p>© WTD-Madagascar — Transport accessible & inclusion</p>
+  <p>© WTD-Madagascar — Mobilité accessible et orientation prudente</p>
   <p>
     <small>
-      Information · Orientation · Validation humaine ·
-      <a data-href="doc/statut-transparence.html">Transparence</a>
+      <a data-href="../index.html">Accueil</a> ·
+      <a data-href="statut-transparence.html">Transparence</a>
     </small>
   </p>
 </footer>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  fetch(BASE_PATH + "data/transports.json")
-    .then(res => res.json())
-    .then(data => {
-      let totalPlaces = 0;
-
-      data.transports.forEach(t => {
-        if (
-          t.accessible === true &&
-          t.places_disponibles > 0 &&
-          t.statut === "disponible"
-        ) {
-          totalPlaces += t.places_disponibles;
-        }
-      });
-
-      document.getElementById("places-count").textContent = totalPlaces;
-    })
-    .catch(() => {
-      document.getElementById("places-count").textContent = "indisponible";
-    });
-
-});
-</script>
 
 </body>
 </html>
