@@ -2,193 +2,158 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>WTD-Madagascar – Information, orientation, accessibilité et IA-Agent</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="WTD-Madagascar : plateforme d’information, d’orientation, d’accessibilité terrain et IA-Agent unifié pour les services, transports, relais locaux et publics fragiles."
-  />
-
-  <link rel="stylesheet" data-main-css href="assets/css/main.css" />
-
-  <script src="assets/js/basepath.js"></script>
-  <script src="assets/js/main.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WTD-Madagascar – Information, orientation, accessibilité et assistant</title>
+  <meta name="description" content="WTD-Madagascar aide à trouver des services, du transport accessible, des relais utiles et une orientation claire à Madagascar." />
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#0f172a" />
 </head>
-
 <body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-<a class="skip-link" href="#contenu">Aller au contenu</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div>
+        <h1><a href="./index.html">WTD-Madagascar</a></h1>
+        <p>Information terrain · Accessibilité · Orientation humaine · Assistant local</p>
+      </div>
 
-<header class="site-header">
-  <div class="container">
-    <h1><a data-href="index.html">WTD-Madagascar</a></h1>
-    <p>Information terrain · Accessibilité · Orientation humaine · IA-Agent unifié</p>
-
-    <nav class="site-nav" aria-label="Navigation principale">
-      <a data-href="index.html" aria-current="page">Accueil</a>
-      <a data-href="doc/services.html">Services</a>
-      <a data-href="doc/transport-accessible.html">Transport</a>
-      <a data-href="doc/map-services.html">Carte</a>
-      <a data-href="doc/bot-dashboard.html">IA-Agent</a>
-      <a data-href="doc/inscription.html">Proposer un service</a>
-      <a data-href="doc/statut-transparence.html">Statut & transparence</a>
-    </nav>
-  </div>
-</header>
-
-<main id="contenu" class="container">
-
-  <section class="card hero">
-    <h2>Une plateforme utile pour trouver des services, des relais et une orientation fiable</h2>
-    <p>
-      <strong>WTD-Madagascar</strong> est une plateforme d’information, d’orientation
-      et d’accessibilité terrain. Son module <strong>WTD-Madagascar IA-Agent</strong>
-      unifie la recherche d’informations, l’analyse des demandes, la détection
-      d’intention, l’évaluation du risque et le calcul des scores du bot.
-    </p>
-    <p lang="mg" class="notice-mg">
-      Tsy manolo olona na andrim-panjakana ny WTD-Madagascar.
-      Izy dia manampy, manoro ary manamora ny fidirana amin’ny vaovao eny an-tany.
-    </p>
-
-    <div class="actions">
-      <a class="btn" data-href="doc/map-services.html">🗺️ Trouver un service</a>
-      <a class="btn btn-secondary" data-href="doc/bot-dashboard.html">🤖 WTD-Madagascar IA-Agent</a>
+      <nav class="site-nav" aria-label="Navigation principale">
+        <a href="./index.html" aria-current="page">Accueil</a>
+        <a href="./bot.html">Bot</a>
+        <a href="./admin.html">Admin</a>
+        <a href="./liens.html">Liens</a>
+        <a href="./doc/services.html">Services</a>
+        <a href="./doc/transport-accessible.html">Transport</a>
+        <a href="./doc/map-services.html">Carte</a>
+      </nav>
     </div>
-  </section>
+  </header>
 
-  <section class="card">
-    <h2>Pour qui ?</h2>
-    <ul>
-      <li>Personnes en situation de handicap</li>
-      <li>Familles, aidants et proches</li>
-      <li>Relais communautaires et acteurs locaux</li>
-      <li>Usagers cherchant un service, un transport ou une orientation claire</li>
-    </ul>
-  </section>
+  <main id="contenu" class="container">
+    <section class="hero card">
+      <div class="hero-copy">
+        <span class="badge">Plateforme WTD-Madagascar</span>
+        <h2>Trouvez un service, un relais ou une orientation claire plus rapidement</h2>
+        <p class="lead">
+          WTD-Madagascar est une plateforme pensée pour aider les personnes en situation de handicap,
+          les familles, les aidants et les acteurs de terrain à accéder à des informations utiles,
+          des services, des transports et des points de contact plus facilement.
+        </p>
+        <p lang="mg" class="notice-mg">
+          Tsy manolo olona na andrim-panjakana ny WTD-Madagascar.
+          Izy dia manampy, manoro ary manamora ny fidirana amin’ny vaovao eny an-tany.
+        </p>
 
-  <section class="card">
-    <h2>Accès rapides</h2>
-    <div class="actions">
-      <a class="btn" data-href="doc/map-services.html">🗺️ Carte des services</a>
-      <a class="btn btn-secondary" data-href="doc/transport-accessible.html">🚐 Transport accessible</a>
-      <a class="btn btn-secondary" data-href="doc/services.html">📋 Tous les services</a>
-      <a class="btn btn-secondary" data-href="doc/bot-dashboard.html">🧭 Assistant d’information</a>
+        <div class="actions">
+          <a class="btn" href="./bot.html">Utiliser l’assistant</a>
+          <a class="btn btn-secondary" href="./liens.html">Voir les liens directs</a>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <div class="mini-card">
+          <h3>Accès immédiat</h3>
+          <ul>
+            <li>Trouver un service ou un relais</li>
+            <li>Consulter le bot local</li>
+            <li>Accéder à l’espace admin</li>
+            <li>Partager une page de liens simple</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid three">
+      <article class="card">
+        <h2>Pour qui ?</h2>
+        <ul>
+          <li>Personnes en situation de handicap</li>
+          <li>Familles, aidants et proches</li>
+          <li>Relais communautaires et acteurs locaux</li>
+          <li>Usagers cherchant un service ou une orientation</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Ce que vous pouvez faire</h2>
+        <ul>
+          <li>Chercher un service utile</li>
+          <li>Consulter le bot local</li>
+          <li>Voir les documents et liens rapides</li>
+          <li>Utiliser la version installable hors ligne</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Principe</h2>
+        <p>
+          WTD-Madagascar informe, oriente et facilite l’accès aux ressources.
+          Il ne remplace ni une personne, ni une autorité, ni une validation humaine.
+        </p>
+      </article>
+    </section>
+
+    <section class="card">
+      <h2>Parcours rapide</h2>
+      <div class="actions wrap-actions">
+        <a class="btn" href="./bot.html">Ouvrir le bot</a>
+        <a class="btn btn-secondary" href="./admin.html">Ouvrir l’admin</a>
+        <a class="btn btn-secondary" href="./liens.html">Page de liens</a>
+      </div>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h2>Bot WTD-Madagascar</h2>
+        <p>
+          Le bot local permet de poser une question, filtrer par zone, consulter les sources retenues
+          et garder un historique local. Il reste utilisable comme site statique, y compris en mode installable.
+        </p>
+        <a class="text-link" href="./bot.html">Accéder au bot</a>
+      </article>
+
+      <article class="card">
+        <h2>Vue admin</h2>
+        <p>
+          L’espace admin permet de filtrer le corpus, relire les documents disponibles,
+          observer des indicateurs et contrôler plus proprement le contenu publié.
+        </p>
+        <a class="text-link" href="./admin.html">Accéder à l’admin</a>
+      </article>
+    </section>
+
+    <section class="card">
+      <h2>Transparence & cadre éthique</h2>
+      <p>
+        WTD-Madagascar applique un principe clair :
+        <strong>pas de surveillance, pas de décision automatique finale,
+        pas de promesse mensongère sur l’autonomie du système</strong>.
+      </p>
+      <p>
+        Le service aide à s’orienter. En cas de situation sensible, urgente ou incertaine,
+        une validation humaine reste nécessaire.
+      </p>
+      <div class="actions">
+        <a class="btn btn-secondary" href="./doc/statut-transparence.html">Transparence</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© WTD-Madagascar — Projet citoyen, humain et orienté terrain.</p>
+      <p class="footer-links">
+        <a href="./index.html">Accueil</a>
+        <a href="./bot.html">Bot</a>
+        <a href="./admin.html">Admin</a>
+        <a href="./liens.html">Liens</a>
+      </p>
     </div>
-  </section>
-
-  <section class="card">
-    <h2>Outils disponibles</h2>
-    <ul>
-      <li>Cartographie interactive des services, antennes et points relais</li>
-      <li><strong>WTD-Madagascar IA-Agent</strong> pour l’information, l’orientation et le calcul du bot</li>
-      <li>Formulaires de proposition de services et relais terrain</li>
-      <li>Documents téléchargeables pour l’usage terrain</li>
-    </ul>
-  </section>
-
-  <section class="card">
-    <h2>WTD-Madagascar IA-Agent</h2>
-    <p>
-      <strong>WTD-Madagascar IA-Agent</strong> est le composant unifié du projet
-      chargé de la perception des messages, de la classification des demandes,
-      de l’évaluation des risques, de l’orientation assistée et du calcul
-      des scores internes du bot.
-    </p>
-    <p>Il permet de relier dans une même logique :</p>
-    <ul>
-      <li>l’analyse des messages utilisateurs,</li>
-      <li>la détection d’intention,</li>
-      <li>la détection de sensibilité,</li>
-      <li>le calcul du score global,</li>
-      <li>l’orientation prudente vers un service, un relais ou une information utile.</li>
-    </ul>
-  </section>
-
-  <section class="card">
-    <h2>Calcul du bot : comment WTD-Madagascar IA-Agent évalue une demande</h2>
-    <p>
-      Le calcul du bot est pris en charge par <strong>WTD-Madagascar IA-Agent</strong>,
-      qui unifie la perception interne, l’analyse des messages, la détection des risques
-      et la production d’un score global.
-    </p>
-    <ul>
-      <li><strong>Intent score</strong> : niveau de confiance sur l’intention détectée</li>
-      <li><strong>Risk score</strong> : niveau de sensibilité du message</li>
-      <li><strong>Absolute score</strong> : score global de qualité et de sécurité</li>
-    </ul>
-
-    <pre><code>Safety score = 100 - Risk score
-Absolute score = (Intent score × 0.6) + (Safety score × 0.4)</code></pre>
-
-    <p>Exemple :</p>
-
-    <pre><code>Intent score = 80
-Risk score = 20
-Safety score = 80
-
-Absolute score = (80 × 0.6) + (80 × 0.4) = 80</code></pre>
-
-    <div class="actions">
-      <a class="btn btn-secondary" data-href="doc/bot-dashboard.html">📊 Voir le dashboard du bot</a>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>Perception interne de WTD-Madagascar IA-Agent</h2>
-    <p>
-      <strong>WTD-Madagascar IA-Agent</strong> ne comprend pas les messages comme un humain.
-      Il applique une lecture structurée basée sur des règles, des signaux de contexte
-      et des indicateurs de confiance.
-    </p>
-
-    <ol>
-      <li><strong>Normalisation</strong> : nettoyage du texte</li>
-      <li><strong>Détection de langue</strong> : français ou malgache</li>
-      <li><strong>Classification d’intention</strong> : type de demande</li>
-      <li><strong>Évaluation du risque</strong> : signaux sensibles</li>
-      <li><strong>Choix de réponse</strong> : orientation adaptée</li>
-    </ol>
-
-    <h3>Types d’intentions détectées</h3>
-    <ul>
-      <li><strong>GENERAL</strong> : demande générale ou aide</li>
-      <li><strong>ORIENTATION</strong> : recherche de service ou de contact</li>
-      <li><strong>SIGNAL</strong> : situation sensible ou urgente</li>
-      <li><strong>CURIOUS</strong> : question sur le système ou l’organisation</li>
-      <li><strong>NOISE</strong> : message trop court ou non exploitable</li>
-    </ul>
-  </section>
-
-  <section class="card">
-    <h2>Transparence & cadre éthique</h2>
-    <p>
-      WTD-Madagascar applique un principe clair :
-      <strong>aucune surveillance, aucune décision automatique finale,
-      aucune collecte de données personnelles</strong>.
-    </p>
-    <p>
-      L’assistant oriente, informe et aide à mieux accéder aux ressources.
-      Il ne remplace ni une personne, ni une autorité, ni une validation humaine.
-    </p>
-
-    <div class="actions">
-      <a class="btn btn-secondary" data-href="doc/statut-transparence.html">📄 Lire le statut & la transparence</a>
-      <a class="btn btn-secondary" data-href="doc/">📁 Accéder aux documents terrain</a>
-    </div>
-  </section>
-
-</main>
-
-<footer class="site-footer">
-  <p>© WTD-Madagascar — Projet citoyen, humain et non automatisé</p>
-  <p>
-    <small>
-      Information · Orientation · Validation humaine ·
-      <a data-href="doc/statut-transparence.html">Transparence</a>
-    </small>
-  </p>
-</footer>
-
+  </footer>
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+  </script>
 </body>
 </html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WTD-Madagascar — Admin</title>
+  <link rel="stylesheet" href="./assets/css/main.css" />
+</head>
+<body class="admin-body">
+  <div class="wrap">
+    <section class="card">
+      <h1>Admin — WTD-DRIVER</h1>
+      <p class="meta">Vue interne retravaillée : filtres, recherche, lecture plus nette et séparation public/admin.</p>
+      <p class="nav"><a href="./index.html">Accueil</a><a href="./bot.html">Bot</a></p>
+    </section>
+
+    <section class="card">
+      <div class="toolbar admin-toolbar">
+        <input id="admin-search" placeholder="Rechercher un titre, mot-clé, contenu…" />
+        <select id="admin-type">
+          <option value="">Tous les types</option>
+          <option value="service">service</option>
+          <option value="pdf">pdf</option>
+          <option value="official">official</option>
+        </select>
+        <select id="admin-validated">
+          <option value="">Validation : toutes</option>
+          <option value="yes">validées</option>
+          <option value="no">non validées</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>État global</h2>
+      <div class="grid-admin">
+        <div class="kpi">Réponses sourcées<strong id="admin-kpi-sourced">0.00</strong></div>
+        <div class="kpi">Cohérence moyenne<strong id="admin-kpi-coherence">0.00</strong></div>
+        <div class="kpi">Saturation moyenne<strong id="admin-kpi-saturation">0.00</strong></div>
+        <div class="kpi">Documents qualifiés<strong id="admin-kpi-qualified">0.00</strong></div>
+        <div class="kpi">Total documents<strong id="admin-total-docs">0</strong></div>
+        <div class="kpi">Corpus actifs<strong id="admin-active-docs">0</strong></div>
+        <div class="kpi">Zones couvertes<strong id="admin-zones">0</strong></div>
+        <div class="kpi">Fiabilité moyenne<strong id="admin-reliability">0.00</strong></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Corpus chargé</h2>
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Titre</th><th>Type</th><th>Zone</th><th>Fiabilité</th><th>Validation</th><th>Mise à jour</th></tr>
+        </thead>
+        <tbody id="admin-table"></tbody>
+      </table>
+    </section>
+  </div>
+  <script type="module" src="./assets/js/app.js"></script>
+</body>
+</html>
