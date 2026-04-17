@@ -1,25 +1,36 @@
-{
-  "services": [
-    {
-      "id": "transport_accessible",
-      "title": "Transport accessible",
-      "description": "Informations sur les moyens de transport accessibles aux personnes à mobilité réduite.",
-      "category": "transport",
-      "active": true
-    },
-    {
-      "id": "orientation_locale",
-      "title": "Orientation locale",
-      "description": "Aide à l’orientation vers les services locaux et partenaires.",
-      "category": "accompagnement",
-      "active": true
-    },
-    {
-      "id": "signalement",
-      "title": "Signalement terrain",
-      "description": "Remontée d’informations terrain (accessibilité, obstacles, besoins).",
-      "category": "terrain",
-      "active": true
-    }
-  ]
-}
+[
+  {
+    "id": "svc-001",
+    "title": "Centre d’orientation Antananarivo",
+    "type": "service",
+    "zone": "Antananarivo",
+    "category": "orientation",
+    "validated": true,
+    "reliability": 0.91,
+    "last_updated": "2026-04-10",
+    "content": "Point d’orientation locale pour usagers, familles et relais.",
+    "keywords": [
+      "orientation",
+      "service",
+      "contact"
+    ],
+    "contact_name": "Référent local",
+    "contact_url": "./doc/contact-relais.html"
+  },
+  {
+    "id": "svc-002",
+    "title": "Relais accessibilité Ivato",
+    "type": "service",
+    "zone": "Ivato",
+    "category": "accessibilite",
+    "validated": true,
+    "reliability": 0.86,
+    "last_updated": "2026-04-08",
+    "content": "Repère local pour accès, appui et orientation de passage.",
+    "keywords": [
+      "ivato",
+      "accessibilite",
+      "aeroport"
+    ]
+  }
+]

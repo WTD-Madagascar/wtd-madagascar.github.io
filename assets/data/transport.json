@@ -1,0 +1,36 @@
+[
+  {
+    "id": "tr-001",
+    "title": "Transport accessible Antananarivo",
+    "type": "service",
+    "zone": "Antananarivo",
+    "category": "transport",
+    "validated": true,
+    "reliability": 0.84,
+    "last_updated": "2026-04-05",
+    "content": "Orientation vers transport et déplacement adapté selon disponibilité locale.",
+    "keywords": [
+      "transport",
+      "deplacement",
+      "taxi",
+      "bus"
+    ]
+  },
+  {
+    "id": "tr-002",
+    "title": "Passage Ivato Aéroport",
+    "type": "service",
+    "zone": "Ivato",
+    "category": "transport",
+    "validated": false,
+    "reliability": 0.69,
+    "last_updated": "2026-03-20",
+    "content": "Repères de passage, attente, accès et orientation prudente à Ivato.",
+    "keywords": [
+      "ivato",
+      "aeroport",
+      "passage",
+      "attente"
+    ]
+  }
+]
