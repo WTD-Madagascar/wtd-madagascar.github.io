@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WTD-Madagascar — Calculateur de foule temps réel</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    .crowd-wrap { max-width: 1200px; margin: 0 auto; padding: 24px 16px 48px; }
+    .crowd-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 18px; }
+    .crowd-card {
+      background: #111c35;
+      border: 1px solid #24324d;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    }
+    .crowd-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .crowd-form label {
+      display: block;
+      font-size: 14px;
+      color: #c7d4f1;
+      margin-bottom: 6px;
+    }
+    .crowd-form input,
+    .crowd-form select,
+    .crowd-form button {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #314264;
+      background: #0b1224;
+      color: #fff;
+      font: inherit;
+    }
+    .crowd-form button {
+      background: #1d4ed8;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .crowd-full { grid-column: 1 / -1; }
+    .crowd-results {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .crowd-kpi {
+      background: #0b1224;
+      border: 1px solid #24324d;
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .crowd-kpi .label {
+      font-size: 13px;
+      color: #9fb0d4;
+      margin-bottom: 8px;
+    }
+    .crowd-kpi .value {
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .crowd-status {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      font-weight: 700;
+    }
+    .crowd-faible { background: rgba(34,197,94,.15); color: #86efac; }
+    .crowd-surveillance { background: rgba(245,158,11,.15); color: #fcd34d; }
+    .crowd-eleve { background: rgba(249,115,22,.15); color: #fdba74; }
+    .crowd-critique { background: rgba(239,68,68,.15); color: #fca5a5; }
+    .crowd-note { margin-top: 16px; color: #c7d4f1; line-height: 1.55; }
+    .crowd-small { font-size: 13px; color: #9fb0d4; }
+    .crowd-nav { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+    .crowd-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      background: #1d4ed8;
+      color: #fff;
+      font-weight: 700;
+    }
+    .crowd-nav a.secondary {
+      background: #17284c;
+      border: 1px solid #35518b;
+    }
+    .crowd-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #17284c;
+      border: 1px solid #35518b;
+      font-weight: 700;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .crowd-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #86efac;
+      box-shadow: 0 0 12px rgba(134,239,172,.7);
+    }
+    .crowd-chart-wrap,
+    .crowd-log {
+      margin-top: 18px;
+      background: #0b1224;
+      border: 1px solid #24324d;
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .crowd-chart {
+      width: 100%;
+      height: 220px;
+      display: block;
+    }
+    .crowd-log-list {
+      max-height: 220px;
+      overflow: auto;
+      display: grid;
+      gap: 8px;
+    }
+    .crowd-log-item {
+      padding: 10px;
+      border-radius: 10px;
+      background: #10192f;
+      color: #dce8ff;
+      font-size: 13px;
+    }
+    @media (max-width: 900px) {
+      .crowd-grid,
+      .crowd-results,
+      .crowd-form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="crowd-wrap">
+    <div class="crowd-nav">
+      <a href="../index.html">Accueil</a>
+      <a class="secondary" href="../admin.html">Admin</a>
+      <a class="secondary" href="../liens.html">Liens</a>
+    </div>
+
+    <section class="crowd-card" style="margin-bottom:18px;">
+      <h1 style="margin-top:0;">Calculateur de risque de foule — temps réel très actif</h1>
+      <p class="crowd-note">
+        Cette version recalcule en continu, anime une courbe, tient un journal d’événements
+        et peut simuler un terrain vivant. C’est un outil d’estimation dynamique, pas une boule de cristal.
+      </p>
+      <div class="crowd-live">
+        <span class="crowd-dot"></span>
+        <span id="liveState">Mode actif : arrêté</span>
+      </div>
+    </section>
+
+    <div class="crowd-grid">
+      <section class="crowd-card">
+        <h2>Paramètres</h2>
+
+        <div class="crowd-form">
+          <div>
+            <label for="sourceMode">Mode de source</label>
+            <select id="sourceMode">
+              <option value="manual">manuel</option>
+              <option value="simulation">simulation</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="intervalSec">Intervalle de mise à jour (secondes)</label>
+            <input id="intervalSec" type="number" min="1" max="10" value="1" />
+          </div>
+
+          <div>
+            <label for="surface">Surface utile (m²)</label>
+            <input id="surface" type="number" min="1" value="800" />
+          </div>
+
+          <div>
+            <label for="personnes">Personnes présentes maintenant</label>
+            <input id="personnes" type="number" min="0" value="2200" />
+          </div>
+
+          <div>
+            <label for="entrees">Entrées par minute</label>
+            <input id="entrees" type="number" min="0" value="120" />
+          </div>
+
+          <div>
+            <label for="sorties">Sorties observées par minute</label>
+            <input id="sorties" type="number" min="0" value="80" />
+          </div>
+
+          <div>
+            <label for="largeur">Largeur totale des sorties (m)</label>
+            <input id="largeur" type="number" min="0" step="0.1" value="6" />
+          </div>
+
+          <div>
+            <label for="debit">Débit de sortie théorique par mètre / min</label>
+            <input id="debit" type="number" min="1" value="75" />
+          </div>
+
+          <div>
+            <label for="vitesse">Vitesse moyenne estimée (m/s)</label>
+            <input id="vitesse" type="number" min="0.1" step="0.1" value="0.8" />
+          </div>
+
+          <div>
+            <label for="projection">Projection courte (min)</label>
+            <input id="projection" type="number" min="1" value="5" />
+          </div>
+
+          <div class="crowd-full" style="display:flex; gap:12px; flex-wrap:wrap;">
+            <button id="startBtn" type="button">Démarrer</button>
+            <button id="stopBtn" type="button" style="background:#17284c; border:1px solid #35518b;">Arrêter</button>
+            <button id="oneShotBtn" type="button" style="background:#17284c; border:1px solid #35518b;">Calcul unique</button>
+          </div>
+        </div>
+
+        <div class="crowd-note">
+          <strong>Important :</strong> en mode simulation, le module fait varier les flux automatiquement
+          pour mimer une situation active. En mode manuel, il relit tes valeurs à chaque intervalle.
+        </div>
+      </section>
+
+      <section class="crowd-card">
+        <h2>Résultats</h2>
+
+        <div class="crowd-results">
+          <div class="crowd-kpi">
+            <div class="label">Capacité réelle de sortie / min</div>
+            <div class="value" id="capaciteSortie">0</div>
+          </div>
+
+          <div class="crowd-kpi">
+            <div class="label">Sorties effectives / min</div>
+            <div class="value" id="sortiesEffectives">0</div>
+          </div>
+
+          <div class="crowd-kpi">
+            <div class="label">Projection personnes fin horizon</div>
+            <div class="value" id="personnesFin">0</div>
+          </div>
+
+          <div class="crowd-kpi">
+            <div class="label">Densité actuelle (pers/m²)</div>
+            <div class="value" id="densite">0</div>
+          </div>
+
+          <div class="crowd-kpi">
+            <div class="label">Temps d’évacuation (min)</div>
+            <div class="value" id="tempsEvac">0</div>
+          </div>
+
+          <div class="crowd-kpi">
+            <div class="label">Score global / 100</div>
+            <div class="value" id="scoreGlobal">0</div>
+          </div>
+        </div>
+
+        <div id="niveauBox" class="crowd-status crowd-faible">Niveau : faible</div>
+
+        <div id="resume" class="crowd-note crowd-small">
+          Le résumé d’analyse apparaîtra ici.
+        </div>
+
+        <div class="crowd-chart-wrap">
+          <h3 style="margin-top:0;">Évolution du score</h3>
+          <canvas id="scoreCanvas" class="crowd-chart" width="800" height="220"></canvas>
+        </div>
+
+        <div class="crowd-log">
+          <h3 style="margin-top:0;">Journal actif</h3>
+          <div id="logList" class="crowd-log-list"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    let timer = null;
+    const scoreHistory = [];
+    const maxHistory = 60;
+
+    function borne(val, min, max) {
+      return Math.max(min, Math.min(max, val));
+    }
+
+    function num(id) {
+      return Number(document.getElementById(id).value);
+    }
+
+    function scoreDensite(densite) {
+      if (densite <= 1) return 10;
+      if (densite <= 2) return 25;
+      if (densite <= 3) return 45;
+      if (densite <= 4) return 70;
+      if (densite <= 5) return 90;
+      return 100;
+    }
+
+    function scoreFlux(entrees, sortiesEffectives) {
+      const delta = entrees - sortiesEffectives;
+      if (delta <= 0) return 10;
+      return borne(delta * 2, 10, 100);
+    }
+
+    function scoreEvacuation(tempsEvac) {
+      if (!isFinite(tempsEvac)) return 100;
+      if (tempsEvac <= 5) return 10;
+      if (tempsEvac <= 10) return 25;
+      if (tempsEvac <= 20) return 45;
+      if (tempsEvac <= 30) return 65;
+      if (tempsEvac <= 45) return 85;
+      return 100;
+    }
+
+    function niveauRisque(densite, score) {
+      if (densite > 5 || score >= 85) return "critique";
+      if (densite >= 4 || score >= 65) return "eleve";
+      if (densite >= 2 || score >= 35) return "surveillance";
+      return "faible";
+    }
+
+    function pushLog(message) {
+      const logList = document.getElementById("logList");
+      const item = document.createElement("div");
+      item.className = "crowd-log-item";
+      item.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      logList.prepend(item);
+      while (logList.children.length > 18) {
+        logList.removeChild(logList.lastChild);
+      }
+    }
+
+    function drawScoreChart() {
+      const canvas = document.getElementById("scoreCanvas");
+      const ctx = canvas.getContext("2d");
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "#0b1224";
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.strokeStyle = "#24324d";
+      ctx.lineWidth = 1;
+
+      for (let i = 0; i <= 5; i++) {
+        const y = (h / 5) * i;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+
+      if (scoreHistory.length < 2) return;
+
+      ctx.strokeStyle = "#60a5fa";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+
+      scoreHistory.forEach((v, i) => {
+        const x = (i / (maxHistory - 1)) * w;
+        const y = h - (v / 100) * h;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+
+      ctx.stroke();
+    }
+
+    function simulateActivity() {
+      const mode = document.getElementById("sourceMode").value;
+      if (mode !== "simulation") return;
+
+      const personnes = document.getElementById("personnes");
+      const entrees = document.getElementById("entrees");
+      const sorties = document.getElementById("sorties");
+      const vitesse = document.getElementById("vitesse");
+
+      const deltaEntrees = Math.round((Math.random() * 16) - 8);
+      const deltaSorties = Math.round((Math.random() * 12) - 6);
+      const deltaPersonnes = Math.round((Math.random() * 30) - 15);
+      const deltaVitesse = ((Math.random() * 0.08) - 0.04);
+
+      entrees.value = Math.max(0, Number(entrees.value) + deltaEntrees);
+      sorties.value = Math.max(0, Number(sorties.value) + deltaSorties);
+      personnes.value = Math.max(0, Number(personnes.value) + deltaPersonnes);
+      vitesse.value = Math.max(0.2, (Number(vitesse.value) + deltaVitesse)).toFixed(2);
+    }
+
+    function calculer() {
+      simulateActivity();
+
+      const surface = num("surface");
+      const personnesActuelles = num("personnes");
+      const entreesParMin = num("entrees");
+      const sortiesParMin = num("sorties");
+      const largeurSorties = num("largeur");
+      const debitParM = num("debit");
+      const vitesse = num("vitesse");
+      const projection = num("projection");
+
+      const capaciteSortie = Math.max(0, largeurSorties * debitParM);
+      const sortiesEffectives = Math.min(sortiesParMin, capaciteSortie);
+
+      const personnesFin = Math.max(
+        0,
+        personnesActuelles + (entreesParMin - sortiesEffectives) * projection
+      );
+
+      const densite = surface > 0 ? personnesActuelles / surface : 0;
+      const tempsEvac = capaciteSortie > 0 ? personnesActuelles / capaciteSortie : Infinity;
+
+      const densiteScore = scoreDensite(densite);
+      const fluxScore = scoreFlux(entreesParMin, sortiesEffectives);
+      const evacuationScore = scoreEvacuation(tempsEvac);
+
+      let scoreGlobal = Math.round(
+        densiteScore * 0.45 +
+        fluxScore * 0.30 +
+        evacuationScore * 0.25
+      );
+
+      if (vitesse < 0.8 && densite > 3.5) {
+        scoreGlobal = Math.min(100, scoreGlobal + 8);
+      }
+
+      const niveau = niveauRisque(densite, scoreGlobal);
+
+      document.getElementById("capaciteSortie").textContent = capaciteSortie.toFixed(0);
+      document.getElementById("sortiesEffectives").textContent = sortiesEffectives.toFixed(0);
+      document.getElementById("personnesFin").textContent = personnesFin.toFixed(0);
+      document.getElementById("densite").textContent = densite.toFixed(2);
+      document.getElementById("tempsEvac").textContent = isFinite(tempsEvac) ? tempsEvac.toFixed(2) : "∞";
+      document.getElementById("scoreGlobal").textContent = scoreGlobal.toFixed(0);
+
+      const niveauBox = document.getElementById("niveauBox");
+      niveauBox.className = "crowd-status";
+
+      let libelle = "faible";
+      if (niveau === "surveillance") {
+        niveauBox.classList.add("crowd-surveillance");
+        libelle = "surveillance";
+      } else if (niveau === "eleve") {
+        niveauBox.classList.add("crowd-eleve");
+        libelle = "élevé";
+      } else if (niveau === "critique") {
+        niveauBox.classList.add("crowd-critique");
+        libelle = "critique";
+      } else {
+        niveauBox.classList.add("crowd-faible");
+      }
+
+      niveauBox.textContent = "Niveau : " + libelle;
+
+      document.getElementById("resume").textContent =
+        `Analyse active : densité actuelle de ${densite.toFixed(2)} pers/m², ` +
+        `projection à ${projection} min avec ${personnesFin.toFixed(0)} personnes, ` +
+        `temps d’évacuation estimé à ${isFinite(tempsEvac) ? tempsEvac.toFixed(2) + " min" : "infini"}, ` +
+        `score global ${scoreGlobal}/100, niveau ${libelle}.`;
+
+      scoreHistory.push(scoreGlobal);
+      if (scoreHistory.length > maxHistory) scoreHistory.shift();
+      drawScoreChart();
+
+      pushLog(
+        `Score ${scoreGlobal}/100 · densité ${densite.toFixed(2)} · ` +
+        `sorties effectives ${sortiesEffectives.toFixed(0)}/min · niveau ${libelle}`
+      );
+    }
+
+    function startLive() {
+      stopLive();
+      const intervalMs = Math.max(1, num("intervalSec")) * 1000;
+      document.getElementById("liveState").textContent = "Mode actif : en cours";
+      calculer();
+      timer = setInterval(calculer, intervalMs);
+    }
+
+    function stopLive() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+      document.getElementById("liveState").textContent = "Mode actif : arrêté";
+    }
+
+    document.getElementById("startBtn").addEventListener("click", startLive);
+    document.getElementById("stopBtn").addEventListener("click", stopLive);
+    document.getElementById("oneShotBtn").addEventListener("click", calculer);
+
+    calculer();
+  </script>
+</body>
+</html>
